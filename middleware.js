@@ -1,9 +1,16 @@
-// middleware.js
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
+const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET || "default_secret";
+const NEXTAUTH_SALT = process.env.NEXTAUTH_SALT || "default_salt"; // Provide a default salt value
+
 export async function middleware(req) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({
+    req,
+    secret: NEXTAUTH_SECRET,
+    salt: NEXTAUTH_SALT,
+  });
 
   const { pathname } = req.nextUrl;
 

@@ -1,3 +1,9 @@
+import CustomerList from "./customer-list";
+
 export default function Page() {
-  return <p>Customers Page</p>;
+  return (
+    <main>
+      <CustomerList />
+    </main>
+  );
 }

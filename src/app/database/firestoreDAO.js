@@ -1,0 +1,52 @@
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+
+const db = getFirestore(); // Initialize Firestore with the client SDK
+
+class FirestoreDAO {
+  constructor(collectionName) {
+    this.collectionRef = collection(db, collectionName);
+  }
+
+  async getAll() {
+    const snapshot = await getDocs(this.collectionRef);
+    const data = [];
+    snapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
+  }
+
+  async getById(id) {
+    const docRef = doc(this.collectionRef, id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() };
+    }
+    return null;
+  }
+
+  async create(data) {
+    const docRef = await addDoc(this.collectionRef, data);
+    return docRef.id;
+  }
+
+  async update(id, data) {
+    const docRef = doc(this.collectionRef, id);
+    await updateDoc(docRef, data);
+  }
+
+  async delete(id) {
+    const docRef = doc(this.collectionRef, id);
+    await deleteDoc(docRef);
+  }
+}
+
+export default FirestoreDAO;

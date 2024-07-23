@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useUserAuth } from "./_utils/auth-context";
 
 export default function Home() {
-  const { data: session } = useSession();
+  const { user, signIn, firebaseSignOut } = useUserAuth();
   const router = useRouter();
 
   // State for form inputs
@@ -13,16 +13,12 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSignIn = async (event) => {
     event.preventDefault();
 
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
-
-    if (result?.ok) {
+    const result = await signIn(email, password);
+    console.log("result", result);
+    if (result.user) {
       router.push("/dashboard"); // Redirect to dashboard on success
     } else {
       setError("Failed to login"); // Show an error message
@@ -30,41 +26,52 @@ export default function Home() {
     }
   };
 
-  if (session) {
-    // User is already logged in, redirect or show a message
-    return (
-      <main className="flex min-h-screen items-center justify-center">
-        <p>You are already logged in. Redirecting to the dashboard...</p>
-        {router.push("/dashboard")}
-      </main>
-    );
-  }
+  const handleSignOut = async (event) => {
+    event.preventDefault();
+
+    await firebaseSignOut();
+    router.push("/"); // Redirect to login page on sign out
+  };
 
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <div>
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Email
+    <main>
+      {user ? (
+        <>
+          <p>Welcome, ({user.email})</p>
+          <button
+            onClick={handleSignOut}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold text-sm py-2 px-4 rounded"
+          >
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <div>
             <input
-              type="text"
+              type="email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="mb-2"
             />
-          </label>
-          <label>
-            Password
             <input
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="mb-2"
             />
-          </label>
-          <button type="submit">Sign in</button>
-        </form>
-        {error && <p>{error}</p>} {/* Display error message if login fails */}
-      </div>
+          </div>
+          <div>{error}</div>
+          <button
+            onClick={handleSignIn}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold text-sm py-2 px-4 rounded"
+          >
+            Login
+          </button>
+        </>
+      )}
     </main>
   );
 }

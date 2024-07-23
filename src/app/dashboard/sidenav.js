@@ -4,17 +4,16 @@ import Link from "next/link";
 import NavLinks from "/src/app/dashboard/nav-links";
 import Logo from "/src/app/logo";
 import { useRouter } from "next/navigation";
-
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useUserAuth } from "/src/app/_utils/auth-context";
 
 export default function SideNav() {
+  const { user, firebaseSignOut } = useUserAuth();
   const router = useRouter();
-
-  const { data: session, status } = useSession();
 
   const handleSignOut = async (event) => {
     event.preventDefault();
-    await signOut({ callbackUrl: "/" });
+    await firebaseSignOut();
+    router.push("/"); // Redirect to login page on sign out
   };
 
   return (
@@ -30,15 +29,15 @@ export default function SideNav() {
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-        {session && (
+        {user && (
           <div className="mb-4">
-            <p>Welcome, {session.user?.name || session.user?.email}</p>
+            <p>User: {user?.email}</p>
           </div>
         )}
         <form onSubmit={handleSignOut}>
           <button
             type="submit"
-            className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-amber-50 hover:text-orange-900 md:flex-none md:justify-start md:p-2 md:px-3"
           >
             <div className="hidden md:block">Sign Out</div>
           </button>
