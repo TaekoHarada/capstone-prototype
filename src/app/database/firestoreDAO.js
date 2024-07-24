@@ -6,6 +6,8 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 const db = getFirestore(); // Initialize Firestore with the client SDK
@@ -31,6 +33,16 @@ class FirestoreDAO {
       return { id: docSnap.id, ...docSnap.data() };
     }
     return null;
+  }
+
+  async getByField(field, value) {
+    const q = query(this.collectionRef, where(field, "==", value));
+    const snapshot = await getDocs(q);
+    const data = [];
+    snapshot.forEach((doc) => {
+      data.push({ id: doc.id, ...doc.data() });
+    });
+    return data;
   }
 
   async create(data) {

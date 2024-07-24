@@ -39,8 +39,17 @@ class Customer {
     return null;
   }
 
+  static async findByFirstName(firstname) {
+    const data = await customerDAO.getByField("firstname", firstname);
+    return data.map((customer) => new Customer(customer));
+  }
+
+  static async findByLastName(lastname) {
+    const data = await customerDAO.getByField("lastname", lastname);
+    return data.map((customer) => new Customer(customer));
+  }
+
   static async create(data) {
-    // Add timestamps if needed
     data.createdAt = new Date();
     data.updatedAt = new Date();
     const id = await customerDAO.create(data);
@@ -48,7 +57,6 @@ class Customer {
   }
 
   static async update(id, data) {
-    // Update the updatedAt field
     data.updatedAt = new Date();
     await customerDAO.update(id, data);
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./_utils/auth-context";
 
@@ -33,6 +33,12 @@ export default function Home() {
     router.push("/"); // Redirect to login page on sign out
   };
 
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user]);
+
   return (
     <main>
       {user ? (
@@ -40,7 +46,7 @@ export default function Home() {
           <p>Welcome, ({user.email})</p>
           <button
             onClick={handleSignOut}
-            className="bg-sky-500 hover:bg-sky-700 text-white font-bold text-sm py-2 px-4 rounded"
+            className="bg-amber-700 hover:bg-amber-600 text-white py-2 px-4 rounded ml-3"
           >
             Sign Out
           </button>
