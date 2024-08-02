@@ -1,8 +1,12 @@
 export default function Page() {
   return (
     <div>
-      <h1>Dashboard Page</h1>
-      <p>Welcome to Punjab Furnitures & Decor Management System!</p>
+      <div className="bg-white bg-opacity-15 p-10 rounded-lg text-center mt-20">
+        <div className="text-white font-bold italic text-5xl">Welcome</div>
+        <div className="text-blue-950 font-bold mt-3">
+          to Punjab Furnitures & Decor
+        </div>
+      </div>
     </div>
   );
 }

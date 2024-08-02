@@ -16,7 +16,7 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   {
-    name: "Settings",
+    name: "User Settings",
     href: "/dashboard/settings",
     icon: Cog6ToothIcon,
   },
@@ -31,7 +31,7 @@ export default function NavLinks() {
           <a
             key={link.name}
             href={link.href}
-            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-amber-50 hover:text-orange-900 md:flex-none md:justify-start md:p-2 md:px-3"
+            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-cyan-900  md:flex-none md:justify-start md:p-2 md:px-3"
           >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>

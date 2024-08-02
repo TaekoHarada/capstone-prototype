@@ -54,7 +54,7 @@ const CustomerList = () => {
         <div>
           <button
             onClick={handleSearchClick}
-            className="bg-amber-700 hover:bg-amber-600 text-white py-2 px-4 rounded ml-3"
+            className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3"
           >
             Search
           </button>

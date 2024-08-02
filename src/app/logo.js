@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div className="grid place-items-center">
       <img
-        className="w-16 md:w-32"
+        className="w-16 md:w-32 border-2 border-cyan-800 rounded-full"
         src="logo_punjabfurnitures.png"
         alt="Punjab Furnitures Logo"
       />

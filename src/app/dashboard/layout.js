@@ -3,7 +3,7 @@ import SideNav from "/src/app/dashboard/sidenav";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-[url('/background2.png')]">
       <div className="w-full flex-none md:w-64">
         <SideNav />
       </div>
