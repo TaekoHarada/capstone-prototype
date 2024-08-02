@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <main className="flex items-center justify-center min-h-screen p-6 bg-[url('/background.png')]">
-      <div className="w-full max-w-md bg-blue-300 rounded-lg shadow-lg p-8">
+      <div className="w-full max-w-md bg-sky-700  bg-opacity-35 rounded-lg shadow-lg p-8">
         {user ? (
           <div className="flex flex-col items-center">
             <p className="text-lg font-semibold mb-4">Welcome, {user.email}</p>
