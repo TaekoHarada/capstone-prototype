@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.1.5",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
+    "capstone-prototype": "file:",
     "encoding": "^0.1.13",
     "firebase": "^10.12.4",
     "next": "14.2.5",

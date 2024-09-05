@@ -17,7 +17,7 @@ const links = [
   },
   {
     name: "User Settings",
-    href: "/dashboard/settings",
+    href: "/dashboard/users",
     icon: Cog6ToothIcon,
   },
 ];

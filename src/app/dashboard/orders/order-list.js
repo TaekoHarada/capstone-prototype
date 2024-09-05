@@ -1,55 +1,54 @@
 "use client";
 
-import React from "react";
-import CustomerInfo from "./customer-info";
+import React, { useState, useEffect } from "react";
+import OrderInfo from "./order-info";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useState, useEffect } from "react";
-import Customer from "/src/app/models/Customer";
+import Order from "/src/app/models/Order";
 import Link from 'next/link';
 
-const CustomerList = () => {
-  const [customers, setCustomers] = useState([]);
+const OrderList = () => {
+  const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchCustomers = async () => {
+    const fetchOrders = async () => {
       try {
-        const data = await Customer.findAll();
-        setCustomers(data);
+        const data = await Order.findAll();
+        setOrders(data);
       } catch (error) {
-        console.error("Error fetching customers:", error);
+        console.error("Error fetching orders:", error);
       }
     };
 
-    fetchCustomers();
+    fetchOrders();
   }, []);
 
   const handleSearchClick = async () => {
-    const name = document.getElementById("customer-name").value.trim();
-    if (!name) {
-      setError("Please enter a customer name.");
+    const orderId = document.getElementById("order-id").value.trim();
+    if (!orderId) {
+      setError("Please enter an order ID.");
       return;
     }
     try {
-      const results = await Customer.findByFirstName(name);
-      setCustomers(results);
+      const results = await Order.findById(orderId);
+      setOrders(results ? [results] : []);
       setError("");
     } catch (err) {
       console.error(err);
-      setError("Error fetching customers.");
+      setError("Error fetching orders.");
     }
   };
 
   return (
     <div>
-      <h1 className="font-bold">Customer Management {" > "} Customer List</h1>
+      <h1 className="font-bold">Order Management {" > "} Order List</h1>
       <div className="flex justify-between items-center my-4">
         <div className="search-form flex items-center flex-1">
           <div className="relative flex flex-1 flex-shrink-0">
             <input
-              id="customer-name"
+              id="order-id"
               className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-              placeholder="Customer name"
+              placeholder="Order ID"
             />
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
           </div>
@@ -60,8 +59,8 @@ const CustomerList = () => {
             Search
           </button>
         </div>
-        <Link href="/dashboard/customers/new" className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded ml-4">
-          Add New Customer
+        <Link href="/dashboard/orders/new" className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded ml-4">
+          Add New Order
         </Link>
       </div>
       {error && <div className="text-red-500">{error}</div>}{" "}
@@ -69,22 +68,19 @@ const CustomerList = () => {
         <thead className="bg-gray-100 text-left text-sm font-normal">
           <tr>
             <th scope="col" className="px-3 py-3 font-medium">
-              Customer ID
+              Order ID
             </th>
             <th scope="col" className="px-3 py-3 font-medium">
-              First Name
+              Customer Name
             </th>
             <th scope="col" className="px-3 py-3 font-medium">
-              Last Name
+              Order Date
             </th>
             <th scope="col" className="px-3 py-3 font-medium">
-              Email
+              Total Amount
             </th>
             <th scope="col" className="px-3 py-3 font-medium">
-              Phone
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Address
+              Status
             </th>
             <th scope="col" className="px-4 py-3 font-medium">
               Note
@@ -99,8 +95,8 @@ const CustomerList = () => {
         </thead>
 
         <tbody className="divide-y divide-gray-200 text-gray-900">
-          {customers.map((customer) => (
-            <CustomerInfo key={customer.id} customer={customer} />
+          {orders.map((order) => (
+            <OrderInfo key={order.id} order={order} />
           ))}
         </tbody>
       </table>
@@ -108,4 +104,4 @@ const CustomerList = () => {
   );
 };
 
-export default CustomerList;
+export default OrderList;
