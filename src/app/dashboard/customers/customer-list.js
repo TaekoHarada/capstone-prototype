@@ -5,6 +5,7 @@ import CustomerInfo from "./customer-info";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import Customer from "/src/app/models/Customer";
+import Link from "next/link";
 
 const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
@@ -58,6 +59,13 @@ const CustomerList = () => {
           >
             Search
           </button>
+        </div>
+        <div>
+          <Link href="/dashboard/customers/new">
+            <button className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3">
+              Add New Customer
+            </button>
+          </Link>
         </div>
       </div>
       {error && <div className="text-red-500">{error}</div>}{" "}

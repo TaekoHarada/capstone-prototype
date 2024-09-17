@@ -4,6 +4,7 @@ import {
   PencilSquareIcon,
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const CustomerInfo = ({ customer }) => {
   return (
@@ -33,7 +34,9 @@ const CustomerInfo = ({ customer }) => {
         <DocumentMagnifyingGlassIcon className="w-6" />
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        <PencilSquareIcon className="w-6" />
+        <Link href={`/dashboard/customers/${customer.id}`}>
+          <PencilSquareIcon className="w-6" />
+        </Link>
       </td>
     </tr>
   );
