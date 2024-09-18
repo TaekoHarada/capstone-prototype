@@ -1,3 +1,4 @@
+import { db } from "./firebaseConfig";
 import {
   getFirestore,
   collection,
@@ -9,8 +10,6 @@ import {
   query,
   where,
 } from "firebase/firestore";
-
-const db = getFirestore(); // Initialize Firestore with the client SDK
 
 class FirestoreDAO {
   constructor(collectionName) {
