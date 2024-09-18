@@ -49,11 +49,11 @@ class Customer {
     return data.map((customer) => new Customer(customer));
   }
 
-  static async create(data) {
+  static async create(id, data) {
     data.createdAt = new Date();
     data.updatedAt = new Date();
-    const id = await customerDAO.create(data);
-    return id;
+    const returnId = await customerDAO.create(id, data);
+    return returnId;
   }
 
   static async update(id, data) {
