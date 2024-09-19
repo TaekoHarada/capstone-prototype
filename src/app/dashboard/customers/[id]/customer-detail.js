@@ -159,7 +159,7 @@ const CustomerDetail = ({ id }) => {
           >
             Save
           </button>
-          {id && (
+          {id !== "new" ? (
             <button
               type="button"
               onClick={handleDelete}
@@ -167,6 +167,8 @@ const CustomerDetail = ({ id }) => {
             >
               Delete
             </button>
+          ) : (
+            <></>
           )}
         </div>
       </form>
