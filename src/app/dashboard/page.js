@@ -1,3 +1,5 @@
+// This is the main page
+
 export default function Page() {
   return (
     <div>

@@ -1,4 +1,15 @@
-import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
+/**
+ * Customer Class:
+ *  This class represents a customer entity and provides static methods
+ * for interacting with the 'customers' collection in Firestore. It leverages the
+ * `FirestoreDAO` class to handle database operations.
+ *
+ * It handles converting plain Firestore data into `Customer` objects, so the data is
+ * returned in a consistent, object-oriented way.
+ *
+ */
+
+import FirestoreDAO from "/src/app/database/firestoreDAO";
 
 // collection name = 'customers'
 const customerDAO = new FirestoreDAO("customers");

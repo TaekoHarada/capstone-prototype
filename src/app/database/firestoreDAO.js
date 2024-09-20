@@ -19,6 +19,7 @@ class FirestoreDAO {
     this.collectionRef = collection(db, collectionName);
   }
 
+  // Method to fetch all documents in the collection
   async getAll() {
     const snapshot = await getDocs(this.collectionRef);
     const data = [];
@@ -28,6 +29,7 @@ class FirestoreDAO {
     return data;
   }
 
+  // Method to fetch a document by its ID
   async getById(id) {
     try {
       const docRef = doc(this.collectionRef, id);
@@ -47,6 +49,7 @@ class FirestoreDAO {
     }
   }
 
+  // Method to query documents by a specific field and value
   async getByField(field, value) {
     const q = query(this.collectionRef, where(field, "==", value));
     const snapshot = await getDocs(q);
@@ -57,6 +60,7 @@ class FirestoreDAO {
     return data;
   }
 
+  // Method to create a new document in the collection
   async create(id, data) {
     if (data.createAt instanceof Date) {
       data.createAt = Timestamp.fromDate(data.createAt);
@@ -70,11 +74,13 @@ class FirestoreDAO {
     return id;
   }
 
+  // Method to update an existing document
   async update(id, data) {
     const docRef = doc(this.collectionRef, id);
     await updateDoc(docRef, data);
   }
 
+  // Method to delete a document by its ID
   async delete(id) {
     const docRef = doc(this.collectionRef, id);
     await deleteDoc(docRef);

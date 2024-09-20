@@ -22,4 +22,5 @@ if (!getApps().length) {
 // Initialize Firestore
 const db = getFirestore(app);
 
+// db is used in firestoerDAO.js
 export { db };

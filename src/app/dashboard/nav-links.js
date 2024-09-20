@@ -1,3 +1,5 @@
+// This is the component that displays the navigation links in the side navigation.
+
 import {
   UserGroupIcon,
   HomeIcon,

@@ -1,3 +1,5 @@
+// This is side nav consisting of logo, nav links and sign out button
+
 "use client";
 
 import Link from "next/link";

@@ -1,3 +1,5 @@
+// This is the base page
+
 // import SideNav from "@/app/dashboard/sidenav";
 import SideNav from "/src/app/dashboard/sidenav";
 
