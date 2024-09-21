@@ -1,5 +1,5 @@
-// Settings main page
+import UserList from './user-list';
 
-export default function Page() {
-  return <main></main>;
+export default function Page({ searchParams }) {
+  return <UserList searchParams={searchParams} />;
 }
