@@ -1,3 +1,8 @@
+import FirestoreDAO from "/src/app/database/firestoreDAO";
+
+// collection name = 'orders'
+const orderDAO = new FirestoreDAO("orders");
+
 class Order {
   constructor({
     id,
@@ -8,6 +13,8 @@ class Order {
     totalAmount,
     status,
     deliverStatus,
+    createdAt,
+    updatedAt,
   }) {
     this.id = id;
     this.orderDate = orderDate;
@@ -17,23 +24,48 @@ class Order {
     this.totalAmount = totalAmount;
     this.status = status;
     this.deliverStatus = deliverStatus;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
-  static async findAll() {}
+  static async findAll() {
+    const data = await orderDAO.getAll();
+    return data.map((order) => new Order(order));
+  }
 
-  static async findById(id) {}
+  static async findById(id) {
+    const data = await orderDAO.getById(id);
+    if (data) {
+      return new Order(data);
+    }
+    return null;
+  }
 
-  static async findByCustomerId(customerId) {}
+  static async findByCustomerId(customerId) {
+    const data = await orderDAO.getByField("customerId", customerId);
+    return data.map((order) => new Order(order));
+  }
 
-  static async findByOrderDate(date) {}
+  static async findByStatus(status) {
+    const data = await orderDAO.getByField("status", status);
+    return data.map((order) => new Order(order));
+  }
 
-  static async findByDeliverDate(date) {}
+  static async create(id, data) {
+    data.createdAt = new Date();
+    data.updatedAt = new Date();
+    const returnId = await orderDAO.create(id, data);
+    return returnId;
+  }
 
-  static async findByStatus(status) {}
+  static async update(id, data) {
+    data.updatedAt = new Date();
+    await orderDAO.update(id, data);
+  }
 
-  static async create(data) {}
-
-  static async update(id, data) {}
-
-  static async delete(id) {}
+  static async delete(id) {
+    await orderDAO.delete(id);
+  }
 }
+
+export default Order;

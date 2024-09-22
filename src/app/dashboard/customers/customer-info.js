@@ -1,13 +1,25 @@
-import React from "react";
-
-import {
-  PencilSquareIcon,
-  DocumentMagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { PencilIcon, TrashIcon, DocumentMagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import Order from '/src/app/models/Order';
+import OrderPopup from './OrderPopup';
 
 const CustomerInfo = ({ customer }) => {
+  const [isOrderPopupOpen, setIsOrderPopupOpen] = useState(false);
+  const [customerOrders, setCustomerOrders] = useState([]);
+
+  const handleViewOrders = async () => {
+    try {
+      const orders = await Order.findByCustomerId(customer.id);
+      setCustomerOrders(orders);
+      setIsOrderPopupOpen(true);
+    } catch (error) {
+      console.error('Error fetching customer orders:', error);
+    }
+  };
+
   return (
+    
     <tr key={customer.id} className="group">
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
         {customer.id}
@@ -30,14 +42,23 @@ const CustomerInfo = ({ customer }) => {
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
         {customer.note}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        <DocumentMagnifyingGlassIcon className="w-6" />
+      <td className="whitespace-nowrap bg-white px-3 py-3">
+        <DocumentMagnifyingGlassIcon
+          className="h-5 w-5 cursor-pointer"
+          onClick={handleViewOrders}
+        />
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="whitespace-nowrap bg-white px-3 py-3">
         <Link href={`/dashboard/customers/${customer.id}`}>
-          <PencilSquareIcon className="w-6" />
+          <PencilIcon className="h-5 w-5 cursor-pointer" />
         </Link>
       </td>
+      <OrderPopup
+        isOpen={isOrderPopupOpen}
+        closeModal={() => setIsOrderPopupOpen(false)}
+        orders={customerOrders}
+        customerId={customer.id}
+      />
     </tr>
   );
 };
