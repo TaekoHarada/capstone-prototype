@@ -1,39 +1,94 @@
+import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
+
+// collection name = 'customers'
+const orderDAO = new FirestoreDAO("orders");
+
 class Order {
   constructor({
     id,
+    status,
+    customerId,
+    orderItemId,
+    shippingType,
+    totalAmount,
     orderDate,
     deliverDate,
-    orderItemId,
-    customerId,
-    totalAmount,
-    status,
-    deliverStatus,
+    paymentDate,
+    createdAt,
+    updatedAt,
   }) {
     this.id = id;
+    this.status = status;
+    this.customerId = customerId;
+    this.orderItemId = orderItemId;
+    this.shippingType = shippingType;
+    this.totalAmount = totalAmount;
     this.orderDate = orderDate;
     this.deliverDate = deliverDate;
-    this.orderItemId = orderItemId;
-    this.customerId = customerId;
-    this.totalAmount = totalAmount;
-    this.status = status;
-    this.deliverStatus = deliverStatus;
+    this.paymentDate = paymentDate;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
-  static async findAll() {}
+  static async findAll() {
+    const data = await orderDAO.getAll();
 
-  static async findById(id) {}
+    // Convert Timestamp objects to a format React can render
+    const formattedData = data.map((order) => ({
+      ...order,
+      orderDate: order.orderDate?.toDate().toLocaleDateString(),
+      deliverDate: order.deliverDate?.toDate().toLocaleDateString(),
+      paymentDate: order.paymentDate?.toDate().toLocaleDateString(),
+    }));
 
-  static async findByCustomerId(customerId) {}
+    console.log("Order find all: ", formattedData);
+    return formattedData.map((order) => new Order(order));
+  }
 
-  static async findByOrderDate(date) {}
+  static async findById(id) {
+    const data = await orderDAO.getById(id);
+    if (data) {
+      const formattedData = {
+        ...data,
+        orderDate: data.orderDate
+          ? data.orderDate.toDate().toLocaleDateString()
+          : null,
+        deliverDate: data.deliverDate
+          ? data.deliverDate.toDate().toLocaleDateString()
+          : null,
+        paymentDate: data.paymentDate
+          ? data.paymentDate.toDate().toLocaleDateString()
+          : null,
+      };
 
-  static async findByDeliverDate(date) {}
+      console.log("Order find by id: ", formattedData);
+      return new Order(formattedData);
+    }
+    return null;
+  }
 
-  static async findByStatus(status) {}
+  static async findByFirstName(firstname) {
+    const data = await orderDAO.getByField("firstname", firstname);
+    return data.map((order) => new Order(order));
+  }
 
-  static async create(data) {}
+  static async findByLastName(lastname) {
+    const data = await orderDAO.getByField("lastname", lastname);
+    return data.map((order) => new Order(order));
+  }
 
-  static async update(id, data) {}
+  static async create(id, data) {
+    const returnId = await orderDAO.create(id, data);
+    return returnId;
+  }
 
-  static async delete(id) {}
+  static async update(id, data) {
+    await orderDAO.update(id, data);
+  }
+
+  static async delete(id) {
+    await orderDAO.delete(id);
+  }
 }
+
+export default Order;
