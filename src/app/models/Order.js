@@ -67,6 +67,16 @@ class Order {
     return null;
   }
 
+  static async findByCustomerId(customerId) {
+    const data = await orderDAO.getByField("customerId", customerId);
+    return data.map((order) => new Order(order));
+  }
+
+  static async findByStatus(status) {
+    const data = await orderDAO.getByField("status", status);
+    return data.map((order) => new Order(order));
+  }
+
   static async findByFirstName(firstname) {
     const data = await orderDAO.getByField("firstname", firstname);
     return data.map((order) => new Order(order));

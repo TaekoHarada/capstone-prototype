@@ -77,6 +77,10 @@ const OrderDetail = ({ id }) => {
     setOrder((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleIdChange = (e) => {
+    setOrderId(e.target.value);
+  };
+
   const handleDateChange = (date, name) => {
     console.log("handleDateChange date: ", date.year);
     setOrder((prev) => ({ ...prev, [name]: date }));
