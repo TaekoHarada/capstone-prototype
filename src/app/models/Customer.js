@@ -1,15 +1,4 @@
-/**
- * Customer Class:
- *  This class represents a customer entity and provides static methods
- * for interacting with the 'customers' collection in Firestore. It leverages the
- * `FirestoreDAO` class to handle database operations.
- *
- * It handles converting plain Firestore data into `Customer` objects, so the data is
- * returned in a consistent, object-oriented way.
- *
- */
-
-import FirestoreDAO from "/src/app/database/firestoreDAO";
+import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
 
 // collection name = 'customers'
 const customerDAO = new FirestoreDAO("customers");
@@ -60,11 +49,11 @@ class Customer {
     return data.map((customer) => new Customer(customer));
   }
 
-  static async create(data) {
+  static async create(id, data) {
     data.createdAt = new Date();
     data.updatedAt = new Date();
-    const id = await customerDAO.create(data);
-    return id;
+    const returnId = await customerDAO.create(id, data);
+    return returnId;
   }
 
   static async update(id, data) {
