@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./_utils/auth-context";
+import Link from 'next/link';
 
 import Logo from "./logo";
 
@@ -131,10 +132,16 @@ export default function Home() {
             {error && <div className="text-red-500 mb-4">{error}</div>}
             <button
               onClick={handleSignIn}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4"
             >
               Login
             </button>
+            <Link
+              href="/forgot-password"
+              className="text-blue-500 hover:text-blue-600 underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
         )}
       </div>
