@@ -10,7 +10,9 @@ class Order {
     customerId,
     orderItemId,
     shippingType,
+    paymentMethod,
     totalAmount,
+    paidBalance,
     orderDate,
     deliverDate,
     paymentDate,
@@ -22,7 +24,9 @@ class Order {
     this.customerId = customerId;
     this.orderItemId = orderItemId;
     this.shippingType = shippingType;
+    this.paymentMethod = paymentMethod;
     this.totalAmount = totalAmount;
+    this.paidBalance = paidBalance;
     this.orderDate = orderDate;
     this.deliverDate = deliverDate;
     this.paymentDate = paymentDate;

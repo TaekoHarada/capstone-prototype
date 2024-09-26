@@ -1,6 +1,9 @@
 import React from "react";
 
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  DocumentCurrencyDollarIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const OrderInfo = ({ order }) => {
@@ -31,10 +34,21 @@ const OrderInfo = ({ order }) => {
         {order.paymentDate}
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        {/* {order.cost} */}
+        {order.paymentMethod}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        {/* {order.paymentMethod} */}
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.totalAmount}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.paidBalance}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.totalAmount - order.paidBalance}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm flex justify-center items-center">
+        <Link href={`/dashboard/orders/${order.id}`}>
+          <DocumentCurrencyDollarIcon className="w-6" />
+        </Link>
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
         <Link href={`/dashboard/orders/${order.id}`}>
