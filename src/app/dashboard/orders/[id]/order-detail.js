@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Order from "/src/app/models/order";
+import Order from "/src/app/models/Order";
 import { DatePicker } from "@nextui-org/date-picker";
 import { useDateFormatter } from "@react-aria/i18n";
 import { parseDate, getLocalTimeZone } from "@internationalized/date";
