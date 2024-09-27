@@ -1,0 +1,18 @@
+
+.signOutButton {
+    background-color: #2876B0E8; 
+    color: white;
+    border: none; 
+    padding: 10px; 
+    font-size: 14px; 
+    font-weight: bold; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    width: 100%;
+    transition: background-color 0.3s ease; 
+  }
+  
+  .signOutButton:hover {
+    background-color: #1a5b8a; 
+  }
+  
