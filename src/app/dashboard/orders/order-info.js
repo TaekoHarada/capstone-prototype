@@ -5,6 +5,11 @@ import {
   DocumentCurrencyDollarIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { generateInvoice } from "/src/app/_utils/generateInvoice";
+
+const handleGenerateInvoice = () => {
+  generateInvoice();
+};
 
 const OrderInfo = ({ order }) => {
   return (
@@ -46,9 +51,12 @@ const OrderInfo = ({ order }) => {
         {order.totalAmount - order.paidBalance}
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm flex justify-center items-center">
-        <Link href={`/dashboard/orders/${order.id}`}>
+        <button
+          className="flex items-center justify-center"
+          onClick={handleGenerateInvoice} // Add your PDF generation logic here
+        >
           <DocumentCurrencyDollarIcon className="w-6" />
-        </Link>
+        </button>
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
         <Link href={`/dashboard/orders/${order.id}`}>
