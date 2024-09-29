@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./_utils/auth-context";
+import Link from 'next/link';
 
 import Logo from "./logo";
 
@@ -17,8 +18,45 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // Add new state variables for validation
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  // Add validation function
+  const validateForm = () => {
+    let isValid = true;
+
+    // Email validation
+    if (!email.trim()) {
+      setEmailError("Email is required");
+      isValid = false;
+    } else if (!email.includes("@")) {
+      setEmailError("Invalid email format");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    // Password validation
+    if (!password) {
+      setPasswordError("Password is required");
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    return isValid;
+  };
+
   const handleSignIn = async (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const result = await signIn(email, password);
@@ -76,22 +114,34 @@ export default function Home() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
+              className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
+                emailError ? "border-red-500" : "border-gray-300"
+              }`}
             />
+            {emailError && <div className="text-red-500 text-sm mb-2">{emailError}</div>}
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300"
+              className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
+                passwordError ? "border-red-500" : "border-gray-300"
+              }`}
             />
+            {passwordError && <div className="text-red-500 text-sm mb-2">{passwordError}</div>}
             {error && <div className="text-red-500 mb-4">{error}</div>}
             <button
               onClick={handleSignIn}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4"
             >
               Login
             </button>
+            <Link
+              href="/forgot-password"
+              className="text-blue-500 hover:text-blue-600 underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
         )}
       </div>
