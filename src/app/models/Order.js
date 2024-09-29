@@ -1,6 +1,6 @@
-import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
+import FirestoreDAO from "/src/app/database/firestoreDAO";
 
-// collection name = 'customers'
+// collection name = 'orders'
 const orderDAO = new FirestoreDAO("orders");
 
 class Order {
@@ -65,7 +65,6 @@ class Order {
           : null,
       };
 
-      console.log("Order find by id: ", formattedData);
       return new Order(formattedData);
     }
     return null;
