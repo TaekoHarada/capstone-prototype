@@ -97,10 +97,19 @@ const OrderList = () => {
               Payment
             </th>
             <th scope="col" className="px-4 py-3 font-medium">
+              Method
+            </th>
+            <th scope="col" className="px-4 py-3 font-medium">
               Cost
             </th>
             <th scope="col" className="px-4 py-3 font-medium">
-              Method
+              Paid
+            </th>
+            <th scope="col" className="px-4 py-3 font-medium">
+              Remaining
+            </th>
+            <th scope="col" className="px-4 py-3 font-medium">
+              Invoice
             </th>
             <th scope="col" className="px-4 py-3 font-medium">
               {" "}

@@ -1,7 +1,15 @@
 import React from "react";
 
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  DocumentCurrencyDollarIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { generateInvoice } from "/src/app/_utils/generateInvoice";
+
+const handleGenerateInvoice = (orderId) => {
+  generateInvoice(orderId);
+};
 
 const OrderInfo = ({ order }) => {
   return (
@@ -31,10 +39,24 @@ const OrderInfo = ({ order }) => {
         {order.paymentDate}
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        {/* {order.cost} */}
+        {order.paymentMethod}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-        {/* {order.paymentMethod} */}
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.totalAmount}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.paidBalance}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm text-right">
+        {order.totalAmount - order.paidBalance}
+      </td>
+      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm flex justify-center items-center">
+        <button
+          className="flex items-center justify-center"
+          onClick={() => handleGenerateInvoice(order.id)} // Add your PDF generation logic here
+        >
+          <DocumentCurrencyDollarIcon className="w-6" />
+        </button>
       </td>
       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
         <Link href={`/dashboard/orders/${order.id}`}>

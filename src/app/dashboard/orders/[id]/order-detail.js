@@ -15,7 +15,9 @@ const OrderDetail = ({ id }) => {
     customerId: "",
     orderItemId: "",
     shippingType: "",
-    totalAmount: "",
+    totalAmount: 0,
+    paidBalance: 0,
+    remainingBalance: 0,
     orderDate: null, // Allow null for empty date
     deliverDate: null,
     paymentDate: null,
@@ -82,8 +84,7 @@ const OrderDetail = ({ id }) => {
   };
 
   const handleDateChange = (date, name) => {
-    console.log("handleDateChange date: ", date.year);
-    setOrder((prev) => ({ ...prev, [name]: date }));
+    setOrder((prev) => ({ ...prev, [name]: date || null }));
   };
 
   const handleSave = () => {
@@ -209,18 +210,45 @@ const OrderDetail = ({ id }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label htmlFor="totalAmount" className="block">
-          Total Amount:
-          <input
-            type="text"
-            id="totalAmount"
-            name="totalAmount"
-            placeholder="Total Amount"
-            value={order.totalAmount}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
+        <div className="flex space-x-4">
+          <label htmlFor="totalAmount" className="block flex-1">
+            Total Amount:
+            <input
+              type="text"
+              id="totalAmount"
+              name="totalAmount"
+              placeholder="Total Amount"
+              value={order.totalAmount}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+            />
+          </label>
+          <label htmlFor="paidBalance" className="block flex-1">
+            Paid Balance:
+            <input
+              type="text"
+              id="paidBalance"
+              name="paidBalance"
+              placeholder="Paid Balance"
+              value={order.paidBalance}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+            />
+          </label>
+          <label htmlFor="remainingBalance" className="block flex-1">
+            Remaining Balance:
+            <input
+              type="text"
+              id="remainingBalance"
+              name="remainingBalance"
+              placeholder="Remaining Balance"
+              value={order.remainingBalance}
+              // onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right bg-gray-100"
+              readOnly
+            />
+          </label>
+        </div>
         <DatePicker
           className="max-w-[284px]"
           label="Order Date"
