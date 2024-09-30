@@ -1,11 +1,17 @@
-// This is the base page
-
 // import SideNav from "@/app/dashboard/sidenav";
 import SideNav from "/src/app/dashboard/sidenav";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden bg-[url('/background2.png')]">
+    <div
+      className="flex h-screen flex-col md:flex-row md:overflow-hidden"
+      style={{
+        backgroundImage: "url('/background2.png')",
+        backgroundSize: "contain",
+        backgroundPosition: "right",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="w-full flex-none md:w-64">
         <SideNav />
       </div>

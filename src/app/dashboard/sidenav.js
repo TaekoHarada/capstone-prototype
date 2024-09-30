@@ -5,7 +5,6 @@ import NavLinks from "/src/app/dashboard/nav-links";
 import Logo from "/src/app/logo";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "/src/app/_utils/auth-context";
-import './settings/styles/sidenav.css'; // Importing the CSS module
 
 export default function SideNav() {
   const { user, firebaseSignOut } = useUserAuth();
@@ -21,9 +20,9 @@ export default function SideNav() {
     <div
       className="flex h-full flex-col px-3 py-4 md:px-2"
       style={{
-        backgroundColor: 'white',
-        borderTopRightRadius: '20px',
-        borderBottomRightRadius: '20px',
+        backgroundColor: "white",
+        borderTopRightRadius: "20px",
+        borderBottomRightRadius: "20px",
       }}
     >
       {/* Logo Section */}
@@ -53,7 +52,7 @@ export default function SideNav() {
           <form onSubmit={handleSignOut}>
             <button
               type="submit"
-              className="signOutButton"
+              className="w-full bg-[#2876B0E8] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-[#1a5b8a]"
             >
               Sign Out
             </button>

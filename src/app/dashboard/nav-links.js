@@ -4,7 +4,6 @@ import {
   DocumentDuplicateIcon,
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
-import './settings/styles/nav-links.css';
 
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
@@ -23,14 +22,14 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <div className="navLinksContainer flex flex-col"> {/* Stack links vertically */}
+    <div className="flex flex-col items-start justify-start"> {/* Stack links vertically */}
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
           <a
             key={link.name}
             href={link.href}
-            className="navLink flex items-center gap-2 rounded-md p-3 text-sm font-medium"
+            className="flex items-center gap-2 p-3 text-sm font-medium rounded-md text-black bg-transparent transition-all duration-300 ease-linear hover:text-[#2876B0E8] active:blur-sm"
           >
             <LinkIcon className="w-6" />
             <p>{link.name}</p> {/* Always show text */}

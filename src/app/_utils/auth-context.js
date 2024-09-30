@@ -7,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "./firebase"; 
 
 const AuthContext = createContext();
 
@@ -24,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const signIn = async (email, password) => {
     try {
-      return signInWithEmailAndPassword(auth, email, password);
+      return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error("Error signing in:", error.message);
     }
@@ -53,5 +53,9 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export const useUserAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useUserAuth must be used within an AuthProvider");
+  }
+  return context;
 };
