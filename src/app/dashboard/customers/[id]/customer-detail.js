@@ -85,7 +85,7 @@ const CustomerDetail = ({ id }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-2xl mx-auto p-6 bg-white/50 shadow-md rounded-md">
       {id === "new" ? (
         <div className="mb-6">
           <label htmlFor="customerId" className="block text-gray-700">
@@ -159,12 +159,12 @@ const CustomerDetail = ({ id }) => {
           >
             Save
           </button>
+
           {id !== "new" ? (
             <button
               type="button"
               onClick={handleDelete}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
+              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
               Delete
             </button>
           ) : (
