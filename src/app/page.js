@@ -92,59 +92,64 @@ export default function Home() {
   }, [user]);
 
   return (
-    <main className="flex items-center justify-center min-h-screen p-6 bg-[url('/background.png')]">
-      <div className="w-full max-w-md bg-sky-700  bg-opacity-35 rounded-lg shadow-lg p-8">
-        {user ? (
-          <div className="flex flex-col items-center">
-            <p className="text-lg font-semibold mb-4">Welcome, {user.email}</p>
-            <button
-              onClick={handleSignOut}
-              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-            >
-              Sign Out
-            </button>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center">
-            <div className="w-32 md:w-40 mb-10">
-              <Logo />
-            </div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
-                emailError ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {emailError && <div className="text-red-500 text-sm mb-2">{emailError}</div>}
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
-                passwordError ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {passwordError && <div className="text-red-500 text-sm mb-2">{passwordError}</div>}
-            {error && <div className="text-red-500 mb-4">{error}</div>}
-            <button
-              onClick={handleSignIn}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4"
-            >
-              Login
-            </button>
-            <Link
-              href="/forgot-password"
-              className="text-blue-500 hover:text-blue-600 underline"
-            >
-              Forgot Password?
-            </Link>
-          </div>
-        )}
+    <main
+  className="flex items-center justify-center min-h-screen p-6 bg-[url('/background.png')] bg-contain bg-no-repeat bg-center bg-fixed"
+>
+  <div className="w-full max-w-md bg-sky-700 bg-opacity-35 rounded-lg shadow-lg p-8">
+    {user ? (
+      <div className="flex flex-col items-center">
+        <p className="text-lg font-semibold mb-4">Welcome, {user.email}</p>
+        <button
+          onClick={handleSignOut}
+          className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+        >
+          Sign Out
+        </button>
       </div>
-    </main>
-  );
-}
+    ) : (
+      <div className="flex flex-col items-center">
+        <div className="w-32 md:w-40 mb-10">
+          <Logo />
+        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
+            emailError ? "border-red-500" : "border-gray-300"
+          }`}
+        />
+        {emailError && (
+          <div className="text-red-500 text-sm mb-2">{emailError}</div>
+        )}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={`w-full mb-1 p-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-300 ${
+            passwordError ? "border-red-500" : "border-gray-300"
+          }`}
+        />
+        {passwordError && (
+          <div className="text-red-500 text-sm mb-2">{passwordError}</div>
+        )}
+        {error && <div className="text-red-500 mb-4">{error}</div>}
+        <button
+          onClick={handleSignIn}
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4"
+        >
+          Login
+        </button>
+        <Link
+          href="/forgot-password"
+          className="text-blue-500 hover:text-blue-600 underline"
+        >
+          Forgot Password?
+        </Link>
+      </div>
+    )}
+  </div>
+</main>
+ )}
