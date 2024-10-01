@@ -31,9 +31,9 @@ class FirestoreDAO {
 
   // Method to fetch a document by its ID
   async getById(id) {
+    console.log("firebaseDAO getById:", id);
     try {
       const docRef = doc(this.collectionRef, id);
-      console.log("docRef", docRef);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {

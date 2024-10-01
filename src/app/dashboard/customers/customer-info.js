@@ -21,34 +21,34 @@ const CustomerInfo = ({ customer }) => {
   return (
     
     <tr key={customer.id} className="group">
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.id}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.firstname}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.lastname}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.email}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.phone}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.address}
       </td>
-      <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+      <td className="group bg-white/70 backdrop-blur-sm">
         {customer.note}
       </td>
-      <td className="whitespace-nowrap bg-white px-3 py-3">
+      <td className="whitespace-nowrap bg-white/70 px-3 py-3">
         <DocumentMagnifyingGlassIcon
           className="h-5 w-5 cursor-pointer"
           onClick={handleViewOrders}
         />
       </td>
-      <td className="whitespace-nowrap bg-white px-3 py-3">
+      <td className="whitespace-nowrap bg-white/70 px-3 py-3">
         <Link href={`/dashboard/customers/${customer.id}`}>
           <PencilIcon className="h-5 w-5 cursor-pointer" />
         </Link>

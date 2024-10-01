@@ -1,6 +1,6 @@
-import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
+import FirestoreDAO from "/src/app/database/firestoreDAO";
 
-// collection name = 'customers'
+// collection name = 'orders'
 const orderDAO = new FirestoreDAO("orders");
 
 class Order {
@@ -10,7 +10,9 @@ class Order {
     customerId,
     orderItemId,
     shippingType,
+    paymentMethod,
     totalAmount,
+    paidBalance,
     orderDate,
     deliverDate,
     paymentDate,
@@ -22,7 +24,9 @@ class Order {
     this.customerId = customerId;
     this.orderItemId = orderItemId;
     this.shippingType = shippingType;
+    this.paymentMethod = paymentMethod;
     this.totalAmount = totalAmount;
+    this.paidBalance = paidBalance;
     this.orderDate = orderDate;
     this.deliverDate = deliverDate;
     this.paymentDate = paymentDate;
@@ -61,7 +65,6 @@ class Order {
           : null,
       };
 
-      console.log("Order find by id: ", formattedData);
       return new Order(formattedData);
     }
     return null;
