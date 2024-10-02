@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Order from "/src/app/models/Order";
 import { DatePicker } from "@nextui-org/date-picker";
 import { useDateFormatter } from "@react-aria/i18n";
-import { parseDate } from "@internationalized/date";
+import { parseDate, getLocalTimeZone } from "@internationalized/date";
 
 const OrderDetail = ({ id }) => {
   const router = useRouter();
@@ -28,16 +28,23 @@ const OrderDetail = ({ id }) => {
   // Format from "9/17/2024" to parseDate("2024-09-17") to use in DatePicker
   function convertDateForDatePicker(dateString) {
     if (!dateString) return null;
+
     const [month, day, year] = dateString.split("/").map(Number);
+
+    // Format the components to ensure two-digit month and day
     const formattedMonth = String(month).padStart(2, "0");
     const formattedDay = String(day).padStart(2, "0");
 
+    // Return the formatted date string
     return parseDate(`${year}-${formattedMonth}-${formattedDay}`);
   }
 
   // Convert date object (DatePicker) to Firestore format
   function convertDateForFireStore(dateObj) {
-    if (!dateObj || !dateObj.month || !dateObj.day || !dateObj.year) return null;
+    console.log("convertDateForFireStore dateObj: ", dateObj);
+    if (!dateObj || !dateObj.month || !dateObj.day || !dateObj.year) {
+      return null;
+    }
     return new Date(`${dateObj.month}/${dateObj.day}/${dateObj.year}`);
   }
 
@@ -63,7 +70,7 @@ const OrderDetail = ({ id }) => {
           console.error("Error fetching order data:", error);
         });
     }
-  }, [id]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,10 +82,13 @@ const OrderDetail = ({ id }) => {
   };
 
   const handleDateChange = (date, name) => {
-    setOrder((prev) => ({ ...prev, [name]: date || null }));
+    console.log("handleDateChange date: ", date.year);
+    setOrder((prev) => ({ ...prev, [name]: date }));
   };
 
   const handleSave = () => {
+    // Convert date to string "9/17/2024"
+    // Convert string to number
     const updateOrder = {
       ...order,
       totalAmount: Number(order.totalAmount),
@@ -133,9 +143,9 @@ const OrderDetail = ({ id }) => {
   };
   
 
+
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      {/* Back Button */}
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
       <button
         type="button"
         onClick={handleBack}
