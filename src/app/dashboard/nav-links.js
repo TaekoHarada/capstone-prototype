@@ -1,5 +1,3 @@
-// This is the component that displays the navigation links in the side navigation.
-
 import {
   UserGroupIcon,
   HomeIcon,
@@ -7,8 +5,6 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
@@ -26,20 +22,20 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <>
+    <div className="flex flex-col items-start justify-start"> {/* Stack links vertically */}
       {links.map((link) => {
         const LinkIcon = link.icon;
         return (
           <a
             key={link.name}
             href={link.href}
-            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-cyan-900  md:flex-none md:justify-start md:p-2 md:px-3"
+            className="flex items-center gap-2 p-3 text-sm font-medium rounded-md text-black bg-transparent transition-all duration-300 ease-linear hover:text-[#2876B0E8] active:blur-sm"
           >
             <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p>
+            <p>{link.name}</p> {/* Always show text */}
           </a>
         );
       })}
-    </>
+    </div>
   );
 }

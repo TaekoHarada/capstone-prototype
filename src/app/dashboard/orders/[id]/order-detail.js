@@ -15,8 +15,10 @@ const OrderDetail = ({ id }) => {
     customerId: "",
     orderItemId: "",
     shippingType: "",
-    totalAmount: "",
-    orderDate: null, // Allow null for empty date
+    totalAmount: 0,
+    paidBalance: 0,
+    remainingBalance: 0,
+    orderDate: null, 
     deliverDate: null,
     paymentDate: null,
   });
@@ -25,10 +27,8 @@ const OrderDetail = ({ id }) => {
 
   // Format from "9/17/2024" to parseDate("2024-09-17") to use in DatePicker
   function convertDateForDatePicker(dateString) {
-    if (dateString === null) {
-      return null;
-    }
-    // Split the date string into components
+    if (!dateString) return null;
+
     const [month, day, year] = dateString.split("/").map(Number);
 
     // Format the components to ensure two-digit month and day
@@ -128,15 +128,28 @@ const OrderDetail = ({ id }) => {
     router.back();
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this order?")) {
+      Order.delete(id)
+        .then(() => {
+          alert("Order deleted successfully");
+          router.back(); // Navigate back to the order list
+        })
+        .catch((error) => {
+          console.error("Error deleting order:", error);
+          alert("Failed to delete order.");
+        });
+    }
+  };
+  
+
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
-      {/* Back Button */}
       <button
         type="button"
         onClick={handleBack}
-        className="px-4 py-2 mb-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+        className="w-full px-4 py-2 mb-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         Back to List
       </button>
@@ -161,7 +174,7 @@ const OrderDetail = ({ id }) => {
       )}
 
       <form className="space-y-4">
-        <label htmlFor="status" className="block">
+        <label htmlFor="status" className="block text-gray-700">
           Status:
           <input
             type="text"
@@ -173,7 +186,7 @@ const OrderDetail = ({ id }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label htmlFor="customerId" className="block">
+        <label htmlFor="customerId" className="block text-gray-700">
           Customer ID:
           <input
             type="text"
@@ -185,7 +198,7 @@ const OrderDetail = ({ id }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label htmlFor="orderItemId" className="block">
+        <label htmlFor="orderItemId" className="block text-gray-700">
           Order Item ID:
           <input
             type="text"
@@ -197,7 +210,7 @@ const OrderDetail = ({ id }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label htmlFor="shippingType" className="block">
+        <label htmlFor="shippingType" className="block text-gray-700">
           Shipping Type:
           <input
             type="text"
@@ -209,56 +222,78 @@ const OrderDetail = ({ id }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label htmlFor="totalAmount" className="block">
-          Total Amount:
-          <input
-            type="text"
-            id="totalAmount"
-            name="totalAmount"
-            placeholder="Total Amount"
-            value={order.totalAmount}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
+        <div className="flex space-x-4">
+          <label htmlFor="totalAmount" className="block flex-1 text-gray-700">
+            Total Amount:
+            <input
+              type="text"
+              id="totalAmount"
+              name="totalAmount"
+              placeholder="Total Amount"
+              value={order.totalAmount}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+            />
+          </label>
+          <label htmlFor="paidBalance" className="block flex-1 text-gray-700">
+            Paid Balance:
+            <input
+              type="text"
+              id="paidBalance"
+              name="paidBalance"
+              placeholder="Paid Balance"
+              value={order.paidBalance}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+            />
+          </label>
+          <label htmlFor="remainingBalance" className="block flex-1 text-gray-700">
+            Remaining Balance:
+            <input
+              type="text"
+              id="remainingBalance"
+              name="remainingBalance"
+              placeholder="Remaining Balance"
+              value={order.remainingBalance}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right bg-gray-100"
+              readOnly
+            />
+          </label>
+        </div>
         <DatePicker
-          className="max-w-[284px]"
+          className="max-w-[284px] text-gray-700"
           label="Order Date"
           value={order.orderDate}
           onChange={(date) => handleDateChange(date, "orderDate")}
         />
         <DatePicker
-          className="max-w-[284px]"
+          className="max-w-[284px] text-gray-700"
           label="Deliver Date"
           value={order.deliverDate}
           onChange={(date) => handleDateChange(date, "deliverDate")}
         />
         <DatePicker
-          className="max-w-[284px]"
+          className="max-w-[284px] text-gray-700"
           label="Payment Date"
           value={order.paymentDate}
           onChange={(date) => handleDateChange(date, "paymentDate")}
         />
 
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-end space-x-4 mt-6">
+          <button
+            type="button"
+            onClick={handleDelete}
+            className=" w-1/2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
+            Delete
+          </button>
           <button
             type="button"
             onClick={handleSave}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className=" w-1/2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Save
           </button>
-          {id !== "new" ? (
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-            >
-              Delete
-            </button>
-          ) : (
-            <></>
-          )}
         </div>
       </form>
     </div>
