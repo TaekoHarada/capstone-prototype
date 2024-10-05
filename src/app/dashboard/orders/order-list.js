@@ -43,6 +43,8 @@ const OrderList = () => {
   return (
     <div>
       <h1 className="font-bold">Order Management {" > "} Order List</h1>
+      
+      {/* Search Section */}
       <div className="search-form flex justify-between items-center my-4">
         <div className="relative flex flex-1 flex-shrink-0">
           <input
@@ -68,61 +70,67 @@ const OrderList = () => {
           </Link>
         </div>
       </div>
-      {error && <div className="text-red-500">{error}</div>}
-      <table className="hidden min-w-full text-gray-900 md:table">
-        <thead className="bg-gray-100 text-left text-sm font-normal">
-          <tr>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Order ID
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Status
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Customer Name
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Item
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Shipping
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Order
-            </th>
-            <th scope="col" className="px-3 py-3 font-medium">
-              Deliver
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Payment
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Method
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Cost
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Paid
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Remaining
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              Invoice
-            </th>
-            <th scope="col" className="px-4 py-3 font-medium">
-              {" "}
-            </th>
-          </tr>
-        </thead>
 
-        <tbody className="divide-y divide-gray-200 text-gray-900">
-          {orders.map((order) => (
-            <OrderInfo key={order.id} order={order} />
-          ))}
-        </tbody>
-      </table>
+      {/* Error Message */}
+      {error && <div className="text-red-500">{error}</div>}
+
+      {/* Responsive Table */}
+      <div className="overflow-x-auto"> {/* This ensures the table is scrollable horizontally */}
+        <table className="min-w-full text-gray-900">
+          <thead className="bg-gray-100 text-left text-sm font-normal">
+            <tr>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Order ID
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Status
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Customer Name
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Item
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Shipping
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Order
+              </th>
+              <th scope="col" className="px-3 py-3 font-medium">
+                Deliver
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Payment
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Method
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Cost
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Paid
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Remaining
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                Invoice
+              </th>
+              <th scope="col" className="px-4 py-3 font-medium">
+                {" "}
+              </th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200 text-gray-900">
+            {orders.map((order) => (
+              <OrderInfo key={order.id} order={order} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
