@@ -47,7 +47,7 @@ export default function SideNav() {
           <form onSubmit={handleSignOut}>
             <button
               type="submit"
-              className="w-full bg-[#262930] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-[#1a5b8a]"
+              className="w-full bg-[#262930] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-gray-600"
             >
               Sign Out
             </button>

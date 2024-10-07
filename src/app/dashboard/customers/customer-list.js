@@ -42,27 +42,27 @@ const CustomerList = () => {
 
   return (
     <div>
-      <h1 className="font-bold">Customer Management {" > "} Customer List</h1>
       <div className="search-form flex justify-between items-center my-4">
         <div className="relative flex flex-1 flex-shrink-0">
-          <input
-            id="customer-name"
-            className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-            placeholder="Customer name"
-          />
+        <input
+  id="customer-name"
+  className="peer block w-full rounded-md border border-gray-300 py-[9px] pl-10 text-sm text-gray-900 outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+  placeholder="Customer name"
+/>
+
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
         <div>
           <button
             onClick={handleSearchClick}
-            className="bg-[#262930] hover:bg-blue-600 text-white py-2 px-4 rounded ml-3"
+            className="bg-[#262930] hover:bg-gray-600 text-white py-2 px-4 rounded ml-3"
           >
             Search
           </button>
         </div>
         <div>
           <Link href="/dashboard/customers/new">
-            <button className="bg-[#262930] hover:bg-blue-600 text-white py-2 px-4 rounded ml-3">
+            <button className="bg-[#262930] hover:bg-gray-600 text-white py-2 px-4 rounded ml-3">
               Add New Customer
             </button>
           </Link>

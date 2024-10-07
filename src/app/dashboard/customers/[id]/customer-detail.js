@@ -94,11 +94,11 @@ const CustomerDetail = ({ id }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white/50 shadow-md rounded-md">
+    <div className="max-w-2xl mx-auto p-6 bg-white/40 shadow-md rounded-md">
       <button
         type="button"
         onClick={handleBack}
-        className="w-full px-4 py-2 mb-4 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+        className="w-full px-4 py-2 mb-4 bg-[#262930] text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         Back to List
       </button>
@@ -115,7 +115,7 @@ const CustomerDetail = ({ id }) => {
             value={customerId}
             onChange={handleIdChange}
             placeholder="Enter new customer ID"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
       ) : (
@@ -128,7 +128,7 @@ const CustomerDetail = ({ id }) => {
           placeholder="First Name"
           value={customer.firstname}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="text"
@@ -136,7 +136,7 @@ const CustomerDetail = ({ id }) => {
           placeholder="Last Name"
           value={customer.lastname}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="email"
@@ -144,7 +144,7 @@ const CustomerDetail = ({ id }) => {
           placeholder="Email"
           value={customer.email}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="text"
@@ -152,21 +152,21 @@ const CustomerDetail = ({ id }) => {
           placeholder="Phone"
           value={customer.phone}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <textarea
           name="address"
           placeholder="Address"
           value={customer.address}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <textarea
           name="note"
           placeholder="Note"
           value={customer.note}
           onChange={handleChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <div className="flex justify-between mt-4">
           <button
