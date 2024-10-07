@@ -18,12 +18,7 @@ export default function SideNav() {
 
   return (
     <div
-      className="flex h-full flex-col px-3 py-4 md:px-2"
-      style={{
-        backgroundColor: "white",
-        borderTopRightRadius: "20px",
-        borderBottomRightRadius: "20px",
-      }}
+      className="flex h-full flex-col px-3 py-4 md:px-2 bg-[#EFEAE4]/20 rounded-lg" // Changed background color to #EFEAE4
     >
       {/* Logo Section */}
       <Link
@@ -52,7 +47,7 @@ export default function SideNav() {
           <form onSubmit={handleSignOut}>
             <button
               type="submit"
-              className="w-full bg-[#2876B0E8] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-[#1a5b8a]"
+              className="w-full bg-[#262930] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-[#1a5b8a]"
             >
               Sign Out
             </button>
