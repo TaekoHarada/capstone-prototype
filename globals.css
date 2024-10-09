@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary-color: 79, 70, 229; /* indigo-600 */
+  --secondary-color: 249, 115, 22; /* orange-500 */
+  --text-color: 17, 24, 39; /* gray-900 */
+  --background-color: 255, 255, 255; /* white */
+  --card-background: 249, 250, 251; /* gray-50 */
+  --border-color: 229, 231, 235; /* gray-200 */
+}
+
+body.light-mode {
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease;
+  }
+  body.dark-mode {
+    background-color: #1a1919;
+    color: #999;
+  }
+
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39; /* gray-900 */
+  --background-end-rgb: 31, 41, 55; /* gray-800 */
+  --primary-color: 129, 140, 248; /* indigo-400 */
+  --secondary-color: 251, 146, 60; /* orange-400 */
+  --text-color: 229, 231, 235; /* gray-200 */
+  --background-color: 17, 24, 39; /* gray-900 */
+  --card-background: 31, 41, 55; /* gray-800 */
+  --border-color: 75, 85, 99; /* gray-600 */
+}
+
+body {
+  color: rgb(var(--text-color));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Additional utility classes */
+.bg-primary {
+  background-color: rgb(var(--primary-color));
+}
+
+.text-primary {
+  color: rgb(var(--primary-color));
+}
+
+.bg-secondary {
+  background-color: rgb(var(--secondary-color));
+}
+
+.text-secondary {
+  color: rgb(var(--secondary-color));
+}
+
+.bg-card {
+  background-color: rgb(var(--card-background));
+}
+
+.border-color {
+  border-color: rgb(var(--border-color));
+}
+
+/* Dark mode specific styles */
+.dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark .prose {
+  color: rgb(var(--text-color));
+}
+
+.dark .prose a {
+  color: rgb(var(--primary-color));
+}
+
+.dark .prose strong {
+  color: rgb(var(--text-color));
+}
+
+.dark .prose h1, .dark .prose h2, .dark .prose h3, .dark .prose h4 {
+  color: rgb(var(--text-color));
+}

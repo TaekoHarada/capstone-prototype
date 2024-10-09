@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./_utils/auth-context";
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 import Logo from "./logo";
 
@@ -62,6 +63,10 @@ export default function Home() {
       const result = await signIn(email, password);
       console.log("result", result);
       if (result.user) {
+        // Save the session token to a cookie
+        const sessionToken = await result.user.getIdToken();
+        Cookies.set('session_token', sessionToken, { expires: 7 }); // Cookie expires in 7 days
+
         router.push("/dashboard");
       } else {
         setError("Failed to login");
@@ -78,6 +83,8 @@ export default function Home() {
 
     try {
       await firebaseSignOut();
+      // Remove the session token cookie on sign out
+      Cookies.remove('session_token');
       router.push("/");
     } catch (error) {
       console.error("Error during sign-out:", error);
