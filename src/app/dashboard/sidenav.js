@@ -14,14 +14,11 @@ export default function SideNav() {
   const handleSignOut = async (event) => {
     event.preventDefault();
     await firebaseSignOut();
-    router.push("/"); // Redirect to the login page on sign-out
+    router.push("/");
   };
 
   return (
-    <div
-      className="flex h-full flex-col px-3 py-4 md:px-2 bg-[#EFEAE4]/20 rounded-lg" // Changed background color to #EFEAE4
-    >
-      {/* Logo Section */}
+    <div className="flex h-full flex-col px-3 py-4 md:px-2 bg-[#EFEAE4]/20 dark:bg-gray-800 rounded-lg">
       <Link
         className="mb-2 pr-2 grid place-items-center rounded-md md:h-40"
         href="/dashboard"
@@ -31,27 +28,24 @@ export default function SideNav() {
         </div>
       </Link>
 
-      {/* Navigation Links */}
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
 
-        {/* Spacer to fill space */}
         <div className="hidden h-auto w-full grow md:block"></div>
         <div className="flex justify-center items-center">
           <DarkModeToggle />
         </div>
 
-        {/* User and Sign Out Section */}
         <div className="p-3">
           {user && (
-            <div className="mb-4 text-black">
+            <div className="mb-4 text-black dark:text-white">
               <p>User: {user?.email}</p>
             </div>
           )}
           <form onSubmit={handleSignOut}>
             <button
               type="submit"
-              className="w-full bg-[#262930] text-white font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-gray-600"
+              className="w-full bg-[#262930] dark:bg-white text-white dark:text-black font-bold text-sm py-2 px-4 rounded-md transition-all duration-300 ease-in-out hover:bg-gray-600 dark:hover:bg-gray-300"
             >
               Sign Out
             </button>
