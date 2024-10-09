@@ -41,90 +41,59 @@ const OrderList = () => {
   };
 
   return (
-    <div>
-      <h1 className="font-bold">Order Management {" > "} Order List</h1>
+    <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
+      <h1 className="font-bold text-gray-900 dark:text-white">Order Management {" > "} Order List</h1>
       
-      {/* Search Section */}
       <div className="search-form flex justify-between items-center my-4">
         <div className="relative flex flex-1 flex-shrink-0">
           <input
             id="customer-name"
-            className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            className="peer block w-full rounded-md border border-gray-300 dark:border-gray-600 py-[9px] pl-10 text-sm text-gray-900 dark:text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800"
             placeholder="Customer name"
           />
-          <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 dark:peer-focus:text-white" />
         </div>
         <div>
           <button
             onClick={handleSearchClick}
-            className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3"
+            className="bg-blue-700 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white py-2 px-4 rounded ml-3 transition-colors duration-200"
           >
             Search
           </button>
         </div>
         <div>
           <Link href="/dashboard/orders/new">
-            <button className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3">
+            <button className="bg-blue-700 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white py-2 px-4 rounded ml-3 transition-colors duration-200">
               Add New Order
             </button>
           </Link>
         </div>
       </div>
 
-      {/* Error Message */}
-      {error && <div className="text-red-500">{error}</div>}
+      {error && <div className="text-red-500 dark:text-red-400">{error}</div>}
 
-      {/* Responsive Table */}
-      <div className="overflow-x-auto"> {/* This ensures the table is scrollable horizontally */}
-        <table className="min-w-full text-gray-900">
-          <thead className="bg-gray-100 text-left text-sm font-normal">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-gray-900 dark:text-white dark:bg-gray-800">
+          <thead className="bg-gray-100 dark:bg-gray-700 text-left text-sm font-medium">
             <tr>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Order ID
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Status
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Customer Name
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Item
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Shipping
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Order
-              </th>
-              <th scope="col" className="px-3 py-3 font-medium">
-                Deliver
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Payment
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Method
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Cost
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Paid
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Remaining
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                Invoice
-              </th>
-              <th scope="col" className="px-4 py-3 font-medium">
-                {" "}
-              </th>
+              <th scope="col" className="px-3 py-3">Order ID</th>
+              <th scope="col" className="px-3 py-3">Status</th>
+              <th scope="col" className="px-3 py-3">Customer Name</th>
+              <th scope="col" className="px-3 py-3">Item</th>
+              <th scope="col" className="px-3 py-3">Shipping</th>
+              <th scope="col" className="px-3 py-3">Order</th>
+              <th scope="col" className="px-3 py-3">Deliver</th>
+              <th scope="col" className="px-4 py-3">Payment</th>
+              <th scope="col" className="px-4 py-3">Method</th>
+              <th scope="col" className="px-4 py-3">Cost</th>
+              <th scope="col" className="px-4 py-3">Paid</th>
+              <th scope="col" className="px-4 py-3">Remaining</th>
+              <th scope="col" className="px-4 py-3">Invoice</th>
+              <th scope="col" className="px-4 py-3"> </th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200 text-gray-900">
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-600 bg-white dark:bg-gray-800">
             {orders.map((order) => (
               <OrderInfo key={order.id} order={order} />
             ))}

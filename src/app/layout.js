@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthContextProvider } from "./_utils/auth-context";
+import DarkModeToggle from "./components/darkmode/DarkModeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <AuthContextProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
+      <html lang="en" className="h-full">
+        <body className={`${inter.className} h-full dark:bg-gray-900 text-gray-900 dark:text-gray-100`}>
+            {children}
+        </body>
       </html>
     </AuthContextProvider>
   );
