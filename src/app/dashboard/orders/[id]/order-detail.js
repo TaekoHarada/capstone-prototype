@@ -152,193 +152,195 @@ return updatedOrder;
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white shadow-lg rounded-lg">
-      <button
-      type= "button"
-      onClick={handleBack}
-      className="w-full px-4 py-2 mb-6 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600">
-        Back To List
-      </button>
+  <button
+    type="button"
+    onClick={handleBack}
+    className="w-full px-4 py-2 mb-6 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600"
+  >
+    Back To List
+  </button>
 
-      {id === "new" ? (
-        <div className="mb-6">
-          <label htmlFor="orderId" className="block text-gray-800 font-semibold">
-            Order ID:
-          </label>
-          <input
-            type="text"
-            id="orderId"
-            name="orderId"
-            value={orderId}
-            onChange={handleIdChange}
-            placeholder="Enter new order ID"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
-        </div>
-      ) : (
-        <p className="text-gray-800 mb-8 text-center font-semibold">Order ID: {id}</p>
-      )}
- 
-      <div className="overflow-y-auto max-h-[75vh]">
-        <form className="space-y-6">
-          <label htmlFor="status" className="block text-gray-800 font-semibold">
-            Status:
-            <input
-              type="text"
-              id="status"
-              name="status"
-              placeholder="Status"
-              value={order.status}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </label>
- 
-          <label htmlFor="customerId" className="block text-gray-800 font-semibold">
-          Customer ID:
-          <input
-            type="text"
-            id="customerId"
-            name="customerId"
-            placeholder="Customer ID"
-            value={order.customerId}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
- 
-        <label htmlFor="orderItemId" className="block text-gray-800 font-semibold">
-          Order Item ID:
-          <input
-            type="text"
-            id="orderItemId"
-            name="orderItemId"
-            placeholder="Order Item ID"
-            value={order.orderItemId}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
- 
-        <label htmlFor="shippingType" className="block text-gray-800 font-semibold">
-          Shipping Type:
-          <input
-            type="text"
-            id="shippingType"
-            name="shippingType"
-            placeholder="Shipping Type"
-            value={order.shippingType}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
- 
-          <label htmlFor="totalAmount" className="block text-gray-800 font-semibold">
-            Total Amount:
-            <input
-              type="number"
-              id="totalAmount"
-              name="totalAmount"
-              placeholder="Total Amount"
-              value={order.totalAmount}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </label>
- 
-          <label htmlFor="paidBalance" className="block text-gray-800 font-semibold">
-            Paid Balance:
-            <input
-              type="number"
-              id="paidBalance"
-              name="paidBalance"
-              placeholder="Paid Balance"
-              value={order.paidBalance}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-            />
-          </label>
- 
-          <label htmlFor="remainingBalance" className="block text-gray-800 font-semibold">
-          Remaining Balance:
-          <input
-            type="text"
-            id="remainingBalance"
-            name="remainingBalance"
-            placeholder="Remaining Balance"
-            value={order.remainingBalance}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-right bg-gray-100"
-            readOnly
-          />
-        </label>
- 
-          <label htmlFor="orderDate" className="block text-gray-800 font-semibold">
-            Order Date:
-            <DatePicker
-              id="orderDate"
-              aria-label="Order Date"
-              value={order.orderDate}
-              onChange={(date) => handleDateChange(date, "orderDate")}
-              granularity="day"
-              minValue={parseDate("1900-01-01")}
-              maxValue={parseDate("2099-12-31")}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              timeZone={getLocalTimeZone()}
-            />
-          </label>
- 
-          <label htmlFor="deliverDate" className="block text-gray-800 font-semibold">
-          Deliver Date:
-          <DatePicker
-            id="deliverDate"
-            label="Deliver Date"
-            aria-label="deliverDate"
-            value={order.deliverDate}
-            onChange={(date) => handleDateChange(date, "deliverDate")}
-            granularity="day"
-            minValue={parseDate("1900-01-01")}
-            maxValue={parseDate("2099-12-31")}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-            timeZone={getLocalTimeZone()}
-          />
-        </label>
- 
-        <label htmlFor="paymentDate" className="block text-gray-800 font-semibold">
-          Payment Date:
-          <DatePicker
-            id="paymentDate"
-            label="Payment Date"
-            aria-label="paymentDate"
-            value={order.paymentDate}
-            onChange={(date) => handleDateChange(date, "paymentDate")}
-            granularity="day"
-            minValue={parseDate("1900-01-01")}
-            maxValue={parseDate("2099-12-31")}
-            className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-            timeZone={getLocalTimeZone()}
-          />
-        </label>
- 
-          <button
-            type="button"
-            onClick={handleSave}
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
-            Save
-          </button>
- 
-          {id !== "new" && (
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="w-full px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 mt-4"
-            >
-              Delete Order
-            </button>
-          )}
-        </form>
-      </div>
-
+  <div className="flex justify-between mb-6 space-x-4">
+    <div className="w-1/3">
+      <label htmlFor="orderId" className="block text-gray-800 font-semibold">
+        Order ID:
+      </label>
+      <input
+        type="text"
+        id="orderId"
+        name="orderId"
+        value={orderId}
+        onChange={handleIdChange}
+        placeholder="Enter new order ID"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
     </div>
+
+    <div className="w-1/3">
+      <label htmlFor="orderItemId" className="block text-gray-800 font-semibold">
+        Order Item ID:
+      </label>
+      <input
+        type="text"
+        id="orderItemId"
+        name="orderItemId"
+        value={order.orderItemId}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/3">
+      <label htmlFor="customerId" className="block text-gray-800 font-semibold">
+        Customer ID:
+      </label>
+      <input
+        type="text"
+        id="customerId"
+        name="customerId"
+        value={order.customerId}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+  </div>
+
+  <div className="flex justify-between mb-6 space-x-4">
+    <div className="w-1/2">
+      <label htmlFor="status" className="block text-gray-800 font-semibold">
+        Status:
+      </label>
+      <input
+        type="text"
+        id="status"
+        name="status"
+        value={order.status}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/2">
+      <label htmlFor="shippingType" className="block text-gray-800 font-semibold">
+        Shipping Type:
+      </label>
+      <input
+        type="text"
+        id="shippingType"
+        name="shippingType"
+        value={order.shippingType}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+  </div>
+
+  <div className="flex justify-between mb-6 space-x-4">
+    <div className="w-1/3">
+      <label htmlFor="totalAmount" className="block text-gray-800 font-semibold">
+        Total Amount:
+      </label>
+      <input
+        type="number"
+        id="totalAmount"
+        name="totalAmount"
+        value={order.totalAmount}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/3">
+      <label htmlFor="paidBalance" className="block text-gray-800 font-semibold">
+        Paid Balance:
+      </label>
+      <input
+        type="number"
+        id="paidBalance"
+        name="paidBalance"
+        value={order.paidBalance}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/3">
+      <label htmlFor="remainingBalance" className="block text-gray-800 font-semibold">
+        Remaining Balance:
+      </label>
+      <input
+        type="number"
+        id="remainingBalance"
+        name="remainingBalance"
+        value={order.remainingBalance}
+        readOnly
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+  </div>
+
+  <div className="flex justify-between mb-6 space-x-4">
+    <div className="w-1/3">
+      <label htmlFor="orderDate" className="block text-gray-800 font-semibold">
+        Order Date:
+      </label>
+      <DatePicker
+        id="orderDate"
+        value={order.orderDate}
+        onChange={(date) => handleDateChange(date, "orderDate")}
+        granularity="day"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/3">
+      <label htmlFor="deliverDate" className="block text-gray-800 font-semibold">
+        Deliver Date:
+      </label>
+      <DatePicker
+        id="deliverDate"
+        value={order.deliverDate}
+        onChange={(date) => handleDateChange(date, "deliverDate")}
+        granularity="day"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+
+    <div className="w-1/3">
+      <label htmlFor="paymentDate" className="block text-gray-800 font-semibold">
+        Payment Date:
+      </label>
+      <DatePicker
+        id="paymentDate"
+        value={order.paymentDate}
+        onChange={(date) => handleDateChange(date, "paymentDate")}
+        granularity="day"
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+    </div>
+  </div>
+
+  <div className="flex justify-between space-x-4 mt-6">
+    <button
+      type="button"
+      onClick={handleSave}
+      className="w-1/2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+    >
+      Save
+    </button>
+
+    {id !== "new" && (
+      <button
+        type="button"
+        onClick={handleDelete}
+        className="w-1/2 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+      >
+        Delete
+      </button>
+    )}
+  </div>
+</div>
+
   );
 };
 

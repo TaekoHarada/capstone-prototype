@@ -57,14 +57,14 @@ const OrderList = () => {
         <div>
           <button
             onClick={handleSearchClick}
-            className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3"
+            className="bg-[#262930] hover:bg-gray-600 text-white py-2 px-4 rounded ml-3"
           >
             Search
           </button>
         </div>
         <div>
           <Link href="/dashboard/orders/new">
-            <button className="bg-blue-700 hover:bg-blue-600 text-white py-2 px-4 rounded ml-3">
+            <button className="bg-[#262930] hover:bg-gray-600 text-white py-2 px-4 rounded ml-3">
               Add New Order
             </button>
           </Link>
