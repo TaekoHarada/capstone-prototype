@@ -14,7 +14,10 @@ const CustomerList = () => {
     const fetchCustomers = async () => {
       try {
         const data = await Customer.findAll();
+
+        //sort with the 1st name//
         // Sort customers alphabetically by firstname
+        
         const sortedData = data.sort((a, b) => a.firstname.localeCompare(b.firstname));
         setCustomers(sortedData);
       } catch (error) {
@@ -32,7 +35,9 @@ const CustomerList = () => {
     }
     try {
       const results = await Customer.findByFirstName(name);
+
       // Sort search results alphabetically by firstname
+
       const sortedResults = results.sort((a, b) => a.firstname.localeCompare(b.firstname));
       setCustomers(sortedResults);
       setError("");
@@ -41,7 +46,7 @@ const CustomerList = () => {
       setError("Error fetching customers.");
     }
   };
-  
+
   return (
     <div>
       <div className="search-form flex justify-between items-center my-4">
@@ -84,7 +89,7 @@ const CustomerList = () => {
             <th scope="col" className="px-4 py-3 font-medium"></th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 text-gray-900">
+        <tbody className="divide-y divide-gray-900 text-gray-900">
           {customers.map((customer) => (
             <CustomerInfo key={customer.id} customer={customer} />
           ))}

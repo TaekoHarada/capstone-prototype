@@ -11,12 +11,19 @@ const formatDate = (timestamp) => {
 const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
   if (!isOpen) return null;
 
+  // Sort orders by Order Date, handling null or undefined dates
+  const sortedOrders = [...orders].sort((a, b) => {
+    const dateA = a.orderDate ? a.orderDate.toMillis() : Infinity;
+    const dateB = b.orderDate ? b.orderDate.toMillis() : Infinity;
+    return dateA - dateB;
+  });
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
         <h2 className="text-2xl font-bold mb-4">Orders for Customer {customerId}</h2>
         <div className="mb-4">
-          {orders.length > 0 ? (
+          {sortedOrders.length > 0 ? (
             <table className="min-w-full text-gray-900">
               <thead className="bg-gray-50 text-left text-sm font-semibold">
                 <tr>
@@ -28,7 +35,7 @@ const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {orders.map((order) => (
+                {sortedOrders.map((order) => (
                   <tr key={order.id} className="group">
                     <td className="whitespace-nowrap px-4 py-3 text-sm">{order.id}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-sm">${order.totalAmount.toFixed(2)}</td>
