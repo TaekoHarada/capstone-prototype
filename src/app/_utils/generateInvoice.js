@@ -23,7 +23,21 @@ export const generateInvoice = async (orderId) => {
     const doc = new jsPDF();
 
     // Optional: Add a logo (make sure the path is correct or comment it out)
-    // doc.addImage('path/to/logo.png', 'PNG', 20, 10, 40, 20);
+    // Add the logo in the top-left corner with a border
+    const imgWidth = 40; // Adjust the width of the logo
+    const imgHeight = 40; // Adjust the height of the logo
+    const xPosition = 10; // X position for the logo
+    const yPosition = 4; // Y position for the logo
+
+    
+    // Add the logo image (make sure the path is correct)
+    doc.addImage("/logo_punjabfurnitures.png", 'PNG', xPosition, yPosition, imgWidth, imgHeight);
+    
+
+
+
+
+    
 
     // Invoice Header
     doc.setFontSize(24);
@@ -32,7 +46,7 @@ export const generateInvoice = async (orderId) => {
 
     // Add a line under the invoice title
     doc.setDrawColor(0, 102, 204);
-    doc.line(20, 35, 190, 35);
+    doc.line(60, 35, 150, 35);
 
     // Company Information (centered and spaced out)
     doc.setFontSize(14);
@@ -67,8 +81,8 @@ export const generateInvoice = async (orderId) => {
     // Table headers for order details
     doc.setFontSize(14);
     doc.setTextColor(0, 102, 204);
-    doc.text("Item ID", 20, 145);
-    doc.text("Description", 60, 145);
+    doc.text("Item", 20, 145);
+    doc.text("Status", 60, 145);
     doc.text("Price", 150, 145);
 
     doc.line(20, 150, 190, 150); // Header line
@@ -77,7 +91,7 @@ export const generateInvoice = async (orderId) => {
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text(invoiceOrderData.orderItemId ? invoiceOrderData.orderItemId.toString() : "N/A", 20, 160);
-    doc.text("Item Description", 60, 160); // Replace with the actual item description if available
+    doc.text( invoiceOrderData.status, 60, 160); // Replace with the actual item description if available
     doc.text(invoiceOrderData.totalAmount ? invoiceOrderData.totalAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A", 150, 160);
     doc.line(20, 165, 190, 165); // Line separating rows
 
@@ -88,10 +102,9 @@ export const generateInvoice = async (orderId) => {
 
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    const today = new Date();
-    const dueDate = new Date(today);
-    dueDate.setDate(dueDate.getDate() + 30); // Payment due in 30 days
-    doc.text("Due: " + dueDate.toLocaleDateString(), 20, 200); // Display due date
+   
+    doc.text("Paid on : "  + invoiceOrderData.paymentDate, 20, 200 ) ; // Display due date
+    doc.text("Method of Payment : "  + invoiceOrderData.paymentMethod, 20, 210 )
 
     // Summary Section
     doc.setFontSize(16);
@@ -100,9 +113,17 @@ export const generateInvoice = async (orderId) => {
 
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text("Subtotal: " + (invoiceOrderData.subTotal ? invoiceOrderData.subTotal.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 230);
-    doc.text("Tax: " + (invoiceOrderData.taxAmount ? invoiceOrderData.taxAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 240);
-    doc.text("Total: " + (invoiceOrderData.totalAmount ? invoiceOrderData.totalAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 250);
+ 
+doc.text("Cost:           " + (invoiceOrderData.totalAmount ? invoiceOrderData.totalAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 230);
+
+
+doc.text("Amount Paid: " + (invoiceOrderData.paidBalance ? invoiceOrderData.paidBalance.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 240);
+
+
+const amountLeft = invoiceOrderData.totalAmount && invoiceOrderData.paidBalance
+  ? (invoiceOrderData.totalAmount - invoiceOrderData.paidBalance).toLocaleString('en-CA', { style: 'currency', currency: 'CAD' })
+  : "N/A";
+doc.text("Amount Left: " + amountLeft, 20, 250);
 
     // Footer with additional info
     doc.setFontSize(12);
@@ -156,3 +177,4 @@ async function fetchInvoiceData(orderId) {
     throw e; // Rethrow the error if you need to handle it elsewhere
   }
 };
+    
