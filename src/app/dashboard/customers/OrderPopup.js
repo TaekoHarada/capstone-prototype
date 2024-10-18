@@ -1,17 +1,19 @@
 import React from 'react';
 import { Timestamp } from 'firebase/firestore';
 
+// Helper function to format Firebase Timestamp objects into readable date strings
 const formatDate = (timestamp) => {
   if (timestamp instanceof Timestamp) {
     return timestamp.toDate().toLocaleDateString();
   }
-  return 'N/A';
+  return 'N/A'; // Return 'N/A' if the timestamp is not a valid date
 };
 
 const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
+  // Return null (render nothing) if the popup is not open
   if (!isOpen) return null;
 
-  // Sort orders by Order Date, handling null or undefined dates
+  // Sort the orders by order date in ascending order, handling missing dates by placing them last
   const sortedOrders = [...orders].sort((a, b) => {
     const dateA = a.orderDate ? a.orderDate.toMillis() : Infinity;
     const dateB = b.orderDate ? b.orderDate.toMillis() : Infinity;
@@ -19,10 +21,14 @@ const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
   });
 
   return (
+    // Modal overlay to cover the entire screen with semi-transparency and center the popup
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+        {/* Popup header with title */}
         <h2 className="text-2xl font-bold mb-4">Orders for Customer {customerId}</h2>
+
         <div className="mb-4">
+          {/* If there are sorted orders, display them in a table format */}
           {sortedOrders.length > 0 ? (
             <table className="min-w-full text-gray-900">
               <thead className="bg-gray-50 text-left text-sm font-semibold">
@@ -35,6 +41,7 @@ const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
+                {/* Map each order to a table row */}
                 {sortedOrders.map((order) => (
                   <tr key={order.id} className="group">
                     <td className="whitespace-nowrap px-4 py-3 text-sm">{order.id}</td>
@@ -47,9 +54,12 @@ const OrderPopup = ({ isOpen, closeModal, orders, customerId }) => {
               </tbody>
             </table>
           ) : (
+            // Display message if no orders are found
             <p className="text-sm text-gray-500">No orders found for this customer.</p>
           )}
         </div>
+        
+        {/* Close button at the bottom right of the popup */}
         <div className="flex justify-end">
           <button
             onClick={closeModal}
