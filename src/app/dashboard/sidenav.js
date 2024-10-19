@@ -5,7 +5,6 @@ import NavLinks from "/src/app/dashboard/nav-links";
 import Logo from "/src/app/logo";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "/src/app/_utils/auth-context";
-import DarkModeToggle from "../components/darkmode/DarkModeToggle";
 
 export default function SideNav() {
   const { user, firebaseSignOut } = useUserAuth();
@@ -37,9 +36,6 @@ export default function SideNav() {
 
         {/* Spacer to fill space */}
         <div className="hidden h-auto w-full grow md:block"></div>
-        <div className="flex justify-center items-center">
-          <DarkModeToggle />
-        </div>
 
         {/* User and Sign Out Section */}
         <div className="p-3">
