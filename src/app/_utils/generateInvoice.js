@@ -14,39 +14,27 @@ export const generateInvoice = async (orderId) => {
       invoiceCustomerData = result.customerData;
     }
 
-    // Check if the data is properly fetched
+    
     if (!invoiceOrderData || !invoiceCustomerData) {
       throw new Error("Invoice data is missing.");
     }
 
-    // Create a new PDF document
+    // Create a doc
     const doc = new jsPDF();
 
-    // Optional: Add a logo (make sure the path is correct or comment it out)
-    // Add the logo in the top-left corner with a border
-    const imgWidth = 40; // Adjust the width of the logo
-    const imgHeight = 40; // Adjust the height of the logo
-    const xPosition = 10; // X position for the logo
-    const yPosition = 4; // Y position for the logo
+  
 
-    
-    
-
-
-
-
-    
 
     // Invoice Header
     doc.setFontSize(24);
     doc.setTextColor(0, 102, 204);
     doc.text("INVOICE", 105, 30, { align: "center" });
 
-    // Add a line under the invoice title
+    // Add a line 
     doc.setDrawColor(0, 102, 204);
     doc.line(60, 35, 150, 35);
 
-    // Company Information (centered and spaced out)
+    // Company Information 
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text("Punjab Furnitures & Decor", 105, 45, { align: "center" });
@@ -55,7 +43,7 @@ export const generateInvoice = async (orderId) => {
     doc.text("Phone: (403) 798-0063", 105, 66, { align: "center" });
     doc.text("Email: hello@apitemplate.io", 105, 73, { align: "center" });
 
-    // Customer Information (with shaded background)
+    // Customer Information  shaded background
     doc.setFillColor(240, 240, 240); // Light gray background
     doc.rect(18, 85, 175, 40, 'F'); // Rectangle for customer info section
     doc.setFontSize(16);
