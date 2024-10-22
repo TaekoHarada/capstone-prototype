@@ -44,8 +44,8 @@ export const generateInvoice = async (orderId) => {
     doc.text("Email: hello@apitemplate.io", 105, 73, { align: "center" });
 
     // Customer Information  shaded background
-    doc.setFillColor(240, 240, 240); // Light gray background
-    doc.rect(18, 85, 175, 40, 'F'); // Rectangle for customer info section
+    doc.setFillColor(240, 240, 240); // Light gray 
+    doc.rect(18, 85, 175, 40, 'F'); // Rectangle 
     doc.setFontSize(16);
     doc.setTextColor(0, 51, 102);
     doc.text("Bill To:", 20, 90);
@@ -64,16 +64,16 @@ export const generateInvoice = async (orderId) => {
     doc.setDrawColor(0, 102, 204);
     doc.line(20, 135, 190, 135);
 
-    // Table headers for order details
+    // Table headers 
     doc.setFontSize(14);
     doc.setTextColor(0, 102, 204);
     doc.text("Item", 20, 145);
     doc.text("Status", 60, 145);
     doc.text("Price", 150, 145);
 
-    doc.line(20, 150, 190, 150); // Header line
+    doc.line(20, 150, 190, 150); 
 
-    // Order Information (formatted as table rows)
+    // Order Information 
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text(invoiceOrderData.orderItemId ? invoiceOrderData.orderItemId.toString() : "N/A", 20, 160);
@@ -111,30 +111,35 @@ const amountLeft = invoiceOrderData.totalAmount && invoiceOrderData.paidBalance
   : "N/A";
 doc.text("Amount Left: " + amountLeft, 20, 250);
 
-    // Footer with additional info
+    // Footer 
     doc.setFontSize(12);
     doc.setTextColor(150, 150, 150);
     doc.text("Thank you for your business!", 105, 280, { align: "center" });
     doc.text("For any questions, please contact us at hello@apitemplate.io.", 105, 285, { align: "center" });
 
-    // Optional: Add a signature line
+    
     doc.setTextColor(0, 102, 204);
     doc.text("Authorized Signature:", 20, 260);
     doc.setTextColor(0, 0, 0);
     doc.line(70, 260, 190, 260); // Signature line
 
-    // Optional: Add page number
+    //  page number
     doc.setFontSize(10);
     doc.text("Page 1 of 1", 180, 295);
 
-    // Download to the local machine
+    // Download 
     doc.save("Invoice.pdf");
   } catch (error) {
     console.error("Error generating the invoice:", error.message);
   }
 };
 
-// Function to fetch invoice data from the database
+// Function to fetch invoice data 
+//Reference:Chat Gpt
+//prompt:
+//I am working on a invoice feature for my web app  which ais designed for a furniture company, pls help me fetch data from the dastabase and how tto show that in the invoice pdf by extracting real information .Provided that i have designed and connected a order entry page and a customer information page both connected by id
+
+
 async function fetchInvoiceData(orderId) {
   console.log("Fetching invoice data for orderId: ", orderId);
   try {
@@ -160,6 +165,6 @@ async function fetchInvoiceData(orderId) {
     return { orderData, customerData };
   } catch (e) {
     console.error("Error fetching order or customer data:", e);
-    throw e; // Rethrow the error if you need to handle it elsewhere
+    throw e; 
   }
 };
