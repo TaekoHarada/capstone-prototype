@@ -6,6 +6,8 @@ import Order from "/src/app/models/Order";
 import {DatePicker } from "@nextui-org/date-picker";
 import { useDateFormatter } from "@react-aria/i18n";
 import { parseDate, getLocalTimeZone } from "@internationalized/date";
+import CustomDatePicker from './CustomerDatePicker';
+
 
 const OrderDetail = ({ id }) => {
 const router = useRouter();
@@ -329,15 +331,13 @@ return updatedOrder;
       Save
     </button>
 
-    {id !== "new" && (
-      <button
+     <button
         type="button"
         onClick={handleDelete}
         className="w-1/2 px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
       >
         Delete
       </button>
-    )}
   </div>
 </div>
 
