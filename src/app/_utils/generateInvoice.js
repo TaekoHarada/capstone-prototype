@@ -7,52 +7,124 @@ export const generateInvoice = async (orderId) => {
   let invoiceOrderData = null;
   let invoiceCustomerData = null;
 
-  const result = await fetchInvoiceData(orderId);
-  if (result) {
-    invoiceOrderData = result.orderData;
-    invoiceCustomerData = result.customerData;
+  try {
+    const result = await fetchInvoiceData(orderId);
+    if (result) {
+      invoiceOrderData = result.orderData;
+      invoiceCustomerData = result.customerData;
+    }
+
+    // Check if the data is properly fetched
+    if (!invoiceOrderData || !invoiceCustomerData) {
+      throw new Error("Invoice data is missing.");
+    }
+
+    // Create a new PDF document
+    const doc = new jsPDF();
+
+    // Optional: Add a logo (make sure the path is correct or comment it out)
+    // doc.addImage('path/to/logo.png', 'PNG', 20, 10, 40, 20);
+
+    // Invoice Header
+    doc.setFontSize(24);
+    doc.setTextColor(0, 102, 204);
+    doc.text("INVOICE", 105, 30, { align: "center" });
+
+    // Add a line under the invoice title
+    doc.setDrawColor(0, 102, 204);
+    doc.line(20, 35, 190, 35);
+
+    // Company Information (centered and spaced out)
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Punjab Furnitures & Decor", 105, 45, { align: "center" });
+    doc.text("76 Westwinds Crescent NE", 105, 52, { align: "center" });
+    doc.text("Calgary, AB, T3J 5H2", 105, 59, { align: "center" });
+    doc.text("Phone: (403) 798-0063", 105, 66, { align: "center" });
+    doc.text("Email: hello@apitemplate.io", 105, 73, { align: "center" });
+
+    // Customer Information (with shaded background)
+    doc.setFillColor(240, 240, 240); // Light gray background
+    doc.rect(18, 85, 175, 40, 'F'); // Rectangle for customer info section
+    doc.setFontSize(16);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Bill To:", 20, 90);
+
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Name: " + (invoiceCustomerData.firstname || "N/A") + " " + (invoiceCustomerData.lastname || "N/A"), 20, 100);
+    doc.text("Address: " + (invoiceCustomerData.address || "N/A"), 20, 107);
+    doc.text("Phone: " + (invoiceCustomerData.phone || "N/A"), 20, 114);
+
+    // Section for item description and order information
+    doc.setFontSize(16);
+    doc.setTextColor(0, 102, 204);
+    doc.text("ITEM DESCRIPTION:", 20, 130);
+
+    doc.setDrawColor(0, 102, 204);
+    doc.line(20, 135, 190, 135);
+
+    // Table headers for order details
+    doc.setFontSize(14);
+    doc.setTextColor(0, 102, 204);
+    doc.text("Item ID", 20, 145);
+    doc.text("Description", 60, 145);
+    doc.text("Price", 150, 145);
+
+    doc.line(20, 150, 190, 150); // Header line
+
+    // Order Information (formatted as table rows)
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text(invoiceOrderData.orderItemId ? invoiceOrderData.orderItemId.toString() : "N/A", 20, 160);
+    doc.text("Item Description", 60, 160); // Replace with the actual item description if available
+    doc.text(invoiceOrderData.totalAmount ? invoiceOrderData.totalAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A", 150, 160);
+    doc.line(20, 165, 190, 165); // Line separating rows
+
+    // Payment Terms Section
+    doc.setFontSize(16);
+    doc.setTextColor(0, 102, 204);
+    doc.text("Payment Terms:", 20, 190);
+
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    const today = new Date();
+    const dueDate = new Date(today);
+    dueDate.setDate(dueDate.getDate() + 30); // Payment due in 30 days
+    doc.text("Due: " + dueDate.toLocaleDateString(), 20, 200); // Display due date
+
+    // Summary Section
+    doc.setFontSize(16);
+    doc.setTextColor(0, 102, 204);
+    doc.text("Summary:", 20, 220);
+
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Subtotal: " + (invoiceOrderData.subTotal ? invoiceOrderData.subTotal.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 230);
+    doc.text("Tax: " + (invoiceOrderData.taxAmount ? invoiceOrderData.taxAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 240);
+    doc.text("Total: " + (invoiceOrderData.totalAmount ? invoiceOrderData.totalAmount.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' }) : "N/A"), 20, 250);
+
+    // Footer with additional info
+    doc.setFontSize(12);
+    doc.setTextColor(150, 150, 150);
+    doc.text("Thank you for your business!", 105, 280, { align: "center" });
+    doc.text("For any questions, please contact us at hello@apitemplate.io.", 105, 285, { align: "center" });
+
+    // Optional: Add a signature line
+    doc.setTextColor(0, 102, 204);
+    doc.text("Authorized Signature:", 20, 260);
+    doc.setTextColor(0, 0, 0);
+    doc.line(70, 260, 190, 260); // Signature line
+
+    // Optional: Add page number
+    doc.setFontSize(10);
+    doc.text("Page 1 of 1", 180, 295);
+
+    // Download to the local machine
+    doc.save("Invoice.pdf");
+  } catch (error) {
+    console.error("Error generating the invoice:", error.message);
   }
-
-  console.log("Invoice Order Data: ", invoiceOrderData);
-  console.log("Invoice Customer Data: ", invoiceCustomerData);
-
-  // Create a new PDF document
-  const doc = new jsPDF();
-
-  // Invoice Header
-  doc.setFontSize(20);
-  doc.text("INVOICE", 90, 20);
-
-  // Company Information
-  doc.setFontSize(12);
-  doc.text("Punjab Furnitures & Decor", 20, 30);
-  doc.text("76 Westwinds Crescent NE", 20, 35);
-  doc.text("Calgary, AB, T3J 5H2", 20, 40);
-  doc.text("Phone: (403) 798-0063", 20, 45);
-  doc.text("Email: hello@apitemplate.io", 20, 50);
-
-  // Customer Information
-  doc.text("Bill To:", 20, 60);
-  doc.text(
-    "Name: " +
-      invoiceCustomerData.firstname +
-      " " +
-      invoiceCustomerData.lastname,
-    20,
-    70
-  );
-  doc.text("Address: " + invoiceCustomerData.address, 20, 75);
-  doc.text("Phone: " + invoiceCustomerData.phone, 20, 80);
-
-  // Order Information
-  doc.text("ITEM DESCRIPTION:", 20, 90);
-  doc.line(20, 95, 190, 95);
-  doc.text("Order ID: " + invoiceOrderData.id, 20, 100);
-  doc.text("Item ID: " + invoiceOrderData.orderItemId, 20, 110);
-  doc.text("Cost: " + invoiceOrderData.totalAmount.toString(), 70, 110);
-
-  // Download to the local machine
-  doc.save("Invoice.pdf");
 };
 
 // Function to fetch invoice data from the database
@@ -83,4 +155,4 @@ async function fetchInvoiceData(orderId) {
     console.error("Error fetching order or customer data:", e);
     throw e; // Rethrow the error if you need to handle it elsewhere
   }
-}
+};
