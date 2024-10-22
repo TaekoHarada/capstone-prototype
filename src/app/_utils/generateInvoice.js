@@ -175,4 +175,3 @@ async function fetchInvoiceData(orderId) {
     throw e; // Rethrow the error if you need to handle it elsewhere
   }
 };
-    
