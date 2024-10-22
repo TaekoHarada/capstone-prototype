@@ -6,7 +6,6 @@ import Order from "/src/app/models/Order";
 import {DatePicker } from "@nextui-org/date-picker";
 import { useDateFormatter } from "@react-aria/i18n";
 import { parseDate, getLocalTimeZone } from "@internationalized/date";
-import CustomDatePicker from './CustomerDatePicker';
 
 
 const OrderDetail = ({ id }) => {
@@ -27,18 +26,20 @@ const [order, setOrder] = useState({
 
 const [orderId, setOrderId] = useState("");
 
+//chatgpt
 const calculateRemainingBalance = (totalAmount, paidBalance) => {
 const total = parseFloat(totalAmount) || 0;
 const paid = parseFloat(paidBalance) || 0;
 return total - paid;
 };
 
+//Converts the date string into a compatible format with date picker.
 function convertDateForDatePicker(dateString) {
   if(!dateString) return null;
   const [month, day, year] = dateString.split("/").map(Number);
-  const formattedMonth = String(month).padStart(2,"0");
+  const formattedMonth = String(month).padStart(2,"0"); //Used for consistent length
   const formattedDay = String(day).padStart(2,"0");
-  return parseDate(`${year}-${formattedMonth}-${formattedDay}`);
+  return parseDate(`${year}-${formattedMonth}-${formattedDay}`); //Converts date string to date object.
 }
 function convertDateForFireStore(dateObj) {
   if(!dateObj || !dateObj.month || !dateObj.day || !dateObj.year){
@@ -74,6 +75,7 @@ useEffect(()=> {
     }
   }, [id]);
 
+//chatgpt
   const handleChange = (e) => {
     const {name, value } = e.target;
 
@@ -139,6 +141,7 @@ return updatedOrder;
     router.back();
   };
 
+  //chatgpt
   const handleDelete = () => {
     if(window.confirm("Are you sure want to delete this order?")) {
       Order.delete(id).then(() => {
