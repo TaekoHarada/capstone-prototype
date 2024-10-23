@@ -99,40 +99,47 @@ return updatedOrder;
   };
 
   const handleSave = () => {
-    const updateOrder ={
+    const updateOrder = {
       ...order,
       totalAmount: Number(order.totalAmount),
       orderDate: convertDateForFireStore(order.orderDate),
-      delieverDate: convertDateForFireStore(order.delieverDate),
+      deliverDate: convertDateForFireStore(order.deliverDate),
       paymentDate: convertDateForFireStore(order.paymentDate),
       updatedAt: new Date(),
     };
-
+  
     if (id !== "new") {
+      // Update existing order
       Order.update(id, updateOrder)
-      .then(() => {alert("Order updated successfully");
-      })
-      .catch((error) => {
-        console.error("Error updating order:", error);
-        alert("Failed to update order." );
+        .then(() => {
+          alert("Order updated successfully");
+        })
+        .catch((error) => {
+          console.error("Error updating order:", error);
+          alert("Failed to update order.");
+        });
+    } else {
+      // Create new order
+      if (!orderId) {
+        alert("Order ID cannot be empty.");
+        return;
       }
-      );
-    }
-    else {
       const newOrder = {
         ...updateOrder,
         createdAt: new Date(),
       };
-
-      Order.create(orderId, newOrder).then((newId) => {
-        alert("Order created successfully with ID: ${newId}");
-      })
-      .catch((error) => {
-        console.error("Error creating order:", error);
-        alert("Failed to create order.");
-      });
+  
+      Order.create(orderId, newOrder)
+        .then((newId) => {
+          alert(`Order created successfully with ID: ${newId}`);
+        })
+        .catch((error) => {
+          console.error("Error creating order:", error);
+          alert("Failed to create order.");
+        });
     }
   };
+
 
   const handleBack = () => {
     router.back();
@@ -172,7 +179,6 @@ return updatedOrder;
         name="orderId"
         value={orderId}
         onChange={handleIdChange}
-        placeholder="Enter new order ID"
         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
       />
     </div>
@@ -219,7 +225,7 @@ return updatedOrder;
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
           >
             <option value="" disabled>
-              Select Status
+              Select 
             </option>
             <option value="Pending">Pending</option>
             <option value="Shipped">Shipped</option>
@@ -240,7 +246,7 @@ return updatedOrder;
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
           >
             <option value="" disabled>
-              Select Shipping Type
+              Select
             </option>
             <option value="Standard">Standard</option>
             <option value="Express">Express</option>
