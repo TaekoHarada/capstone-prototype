@@ -1,4 +1,4 @@
-import FirestoreDAO from "/src/app/database/firestoreDAO"; // Adjust the path as needed
+import FirestoreDAO from "/src/app/database/firestoreDAO"; 
 
 // collection name = 'customers'
 const customerDAO = new FirestoreDAO("customers");
@@ -16,8 +16,8 @@ class Customer {
     updatedAt,
   }) {
     this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.firstname = firstname; 
+    this.lastname = lastname; 
     this.email = email;
     this.phone = phone;
     this.address = address;
@@ -50,6 +50,13 @@ class Customer {
   }
 
   static async create(id, data) {
+    if (!/^[A-Za-z\s]+$/.test(data.firstname)) {
+      throw new Error("Invalid first name. Only alphabets are allowed.");
+    }
+    if (!/^[A-Za-z\s]+$/.test(data.lastname)) {
+      throw new Error("Invalid last name. Only alphabets are allowed.");
+    }
+
     data.createdAt = new Date();
     data.updatedAt = new Date();
     const returnId = await customerDAO.create(id, data);
@@ -57,6 +64,14 @@ class Customer {
   }
 
   static async update(id, data) {
+    // Validate that firstname and lastname only contain alphabets
+    if (data.firstname && !/^[A-Za-z\s]+$/.test(data.firstname)) {
+      throw new Error("Invalid first name. Only alphabets are allowed.");
+    }
+    if (data.lastname && !/^[A-Za-z\s]+$/.test(data.lastname)) {
+      throw new Error("Invalid last name. Only alphabets are allowed.");
+    }
+
     data.updatedAt = new Date();
     await customerDAO.update(id, data);
   }
