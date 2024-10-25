@@ -31,3 +31,39 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Base styles for mobile-first */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2rem; /* Default for mobile */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* Media queries for larger screens */
+@media (min-width: 600px) {
+  h1 {
+    font-size: 3rem; /* Tablet size */
+  }
+  .container {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 900px) {
+  h1 {
+    font-size: 4rem; /* Desktop size */
+  }
+  .container {
+    padding: 2rem;
+  }
+}
