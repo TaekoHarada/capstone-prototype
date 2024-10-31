@@ -28,5 +28,4 @@ const DrawDesignPage = () => {
     </div>
   );
 };
-
 export default DrawDesignPage;
