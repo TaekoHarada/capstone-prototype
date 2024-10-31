@@ -18,6 +18,7 @@ const DrawDesignPage = () => {
 
   return (
     <div>
+      <h1>Draw Design Feature</h1> {/* Add this line */}
       <button onClick={() => setIsCanvasVisible(!isCanvasVisible)}>Draw Design</button>
       {isCanvasVisible && (
         <div>
@@ -27,5 +28,6 @@ const DrawDesignPage = () => {
       )}
     </div>
   );
+  
 };
 export default DrawDesignPage;
