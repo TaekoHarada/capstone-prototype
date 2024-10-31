@@ -16,18 +16,18 @@ const DrawDesignPage = () => {
     setIsCanvasVisible(true);
   };
 
-  return (
-    <div>
-      <h1>Draw Design Feature</h1> {/* Add this line */}
-      <button onClick={() => setIsCanvasVisible(!isCanvasVisible)}>Draw Design</button>
-      {isCanvasVisible && (
-        <div>
-          <ControlPanel onDimensionsSubmit={handleStartDrawing} />
-          <RoomCanvas roomDimensions={roomDimensions} />
-        </div>
-      )}
-    </div>
-  );
-  
+ return (
+  <div>
+    <h1>Draw Design Feature</h1> {/* Add this line */}
+    <button onClick={() => setIsCanvasVisible(!isCanvasVisible)}>Draw Design</button>
+    {isCanvasVisible && (
+      <div>
+        <ControlPanel onDimensionsSubmit={handleStartDrawing} />
+        <RoomCanvas roomDimensions={roomDimensions} />
+      </div>
+    )}
+  </div>
+);
+
 };
 export default DrawDesignPage;
