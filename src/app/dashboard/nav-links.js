@@ -14,6 +14,13 @@ const links = [
     href: "/dashboard/orders",
     icon: DocumentDuplicateIcon,
   },
+
+  {
+    name: "Draw Design",
+    href: "/dashboard/drawDesign",
+    icon: DocumentDuplicateIcon,
+  },
+
   {
     name: "User Settings",
     href: "/dashboard/settings",
