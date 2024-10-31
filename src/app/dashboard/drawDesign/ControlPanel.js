@@ -6,8 +6,11 @@ const ControlPanel = ({ onDimensionsSubmit }) => {
   const [width, setWidth] = useState('');
 
   const handleSubmit = () => {
+    // Ensure length and width are valid before submitting
     if (length && width) {
       onDimensionsSubmit(Number(length), Number(width));
+    } else {
+      console.log("Please enter valid room dimensions.");
     }
   };
 
