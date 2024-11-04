@@ -67,3 +67,46 @@ h1 {
     padding: 2rem;
   }
 }
+
+/* Customize the pop-up background, borders, and shadows for DatePicker */
+.nextui-datepicker {
+  background-color: white; /* Ensure a white background */
+  border: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
+  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+
+/* Customize calendar header */
+.nextui-datepicker-header {
+  background-color: #f3f4f6; /* Tailwind's bg-gray-100 */
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
+}
+
+/* Customize calendar days */
+.nextui-datepicker-day {
+  color: #374151; /* Tailwind's text-gray-800 */
+  border-radius: 0.25rem; /* Tailwind's rounded */
+  padding: 0.5rem;
+}
+
+.nextui-datepicker-day:hover {
+  background-color: #e5e7eb; /* Tailwind's hover:bg-gray-200 */
+}
+
+.nextui-datepicker-day-selected {
+  background-color: #2563eb; /* Tailwind's bg-blue-600 */
+  color: white;
+}
+
+/* Custom DatePicker styles */
+.custom-datepicker {
+  background-color: white !important; /* Ensures a white background */
+  border: 1px solid #ccc; /* Optional: makes the border visible */
+  z-index: 10; /* Ensures it stays on top */
+}
+
+/* If the dropdown needs styles */
+.custom-datepicker .nextui-datepicker-dropdown {
+  background-color: white !important; /* Ensure dropdown background */
+  border: 1px solid #ccc; /* Border for visibility */
+}
