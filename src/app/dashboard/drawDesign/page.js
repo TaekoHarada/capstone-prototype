@@ -1,3 +1,5 @@
+// page.js
+
 "use client";
 
 import React, { useState } from 'react';
@@ -13,19 +15,16 @@ const DrawDesignPage = () => {
 
   const handleStartDrawing = (length, width) => {
     setRoomDimensions({ length, width });
-    setIsCanvasVisible(true);
+    setIsCanvasVisible(true); // Show canvas once dimensions are set
   };
 
   return (
     <div>
-      <button onClick={() => setIsCanvasVisible(!isCanvasVisible)}>Draw Design</button>
-      {isCanvasVisible && (
-        <div>
-          <ControlPanel onDimensionsSubmit={handleStartDrawing} />
-          <RoomCanvas roomDimensions={roomDimensions} />
-        </div>
-      )}
+      <h2>Room Designer</h2>
+      <ControlPanel onDimensionsSubmit={handleStartDrawing} />
+      {isCanvasVisible && <RoomCanvas roomDimensions={roomDimensions} />}
     </div>
   );
 };
+
 export default DrawDesignPage;
