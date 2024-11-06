@@ -6,7 +6,6 @@ const ControlPanel = ({ onDimensionsSubmit }) => {
   const [width, setWidth] = useState('');
 
   const handleSubmit = () => {
-    // Ensure length and width are valid before submitting
     if (length && width) {
       onDimensionsSubmit(Number(length), Number(width));
     } else {
@@ -15,20 +14,48 @@ const ControlPanel = ({ onDimensionsSubmit }) => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '10px' }}>
       <input
         type="number"
         placeholder="Room Length"
         value={length}
         onChange={(e) => setLength(e.target.value)}
+        style={{
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          fontSize: '1em',
+          width: '150px',
+        }}
       />
       <input
         type="number"
         placeholder="Room Width"
         value={width}
         onChange={(e) => setWidth(e.target.value)}
+        style={{
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          fontSize: '1em',
+          width: '150px',
+        }}
       />
-      <button onClick={handleSubmit}>Create Room</button>
+      <button
+        onClick={handleSubmit}
+        style={{
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: '8px',
+          fontWeight: 'bold',
+          fontSize: '1em',
+          cursor: 'pointer',
+        }}
+      >
+        Create Room
+      </button>
     </div>
   );
 };
