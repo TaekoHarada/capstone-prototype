@@ -52,7 +52,11 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
   return (
     <canvas
       ref={canvasRef}
-      style={{ border: '1px solid black', backgroundColor: '#f0f0f0' }}
+      style={{
+        border: '3px solid #333', // Thicker border with custom color
+        backgroundColor: '#f0f0f0',
+        boxSizing: 'border-box' // Ensures padding does not affect canvas size
+      }}
       onClick={handleCanvasClick}
       onMouseMove={(event) => {
         if (event.buttons === 1 && selectedItemId) {
