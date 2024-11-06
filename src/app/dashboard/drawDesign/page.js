@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import ControlPanel from './ControlPanel';
 import { furnitureData } from './furnitureData';
 
+// Dynamically import RoomCanvas with SSR disabled
 const RoomCanvas = dynamic(() => import('./RoomCanvas'), { ssr: false });
 
 const DrawDesignPage = () => {
@@ -72,6 +73,7 @@ const DrawDesignPage = () => {
             marginTop: '20px',
           }}
         >
+          {/* Display draggable items as images */}
           <div style={{ display: 'flex', gap: '15px', marginBottom: '10px' }}>
             {furnitureData.map((item) => (
               <div
@@ -81,16 +83,27 @@ const DrawDesignPage = () => {
                 style={{
                   width: item.width,
                   height: item.height,
-                  backgroundColor: 'lightblue',
-                  padding: '10px',
                   cursor: 'grab',
                   textAlign: 'center',
                 }}
               >
-                {item.name}
+                {/* Use the item's image instead of a colored rectangle */}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    borderRadius: '5px',
+                    border: '1px solid #ccc',
+                  }}
+                />
+                <p style={{ fontSize: '0.9em', marginTop: '5px', color: '#555' }}>{item.name}</p>
               </div>
             ))}
           </div>
+
           <div
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}

@@ -34,3 +34,10 @@ const FurnitureItem = ({ item, x, y }) => {
 };
 
 export default FurnitureItem;
+
+// References
+// ChatGPT
+// Prompts:
+// 1. "How can I display furniture items as images rather than rectangles in a React app using Konva?"
+// 2. "How do I dynamically load images in react-konva using URLs provided in an external dataset?"
+// 3. "How can I handle image loading errors and only display the image after it has loaded?"

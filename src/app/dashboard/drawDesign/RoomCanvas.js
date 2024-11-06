@@ -10,6 +10,7 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
+    // Set canvas dimensions based on room dimensions
     canvas.width = length * 10;
     canvas.height = width * 10;
 
@@ -17,11 +18,20 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
     context.fillStyle = '#d3d3d3';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Draw each furniture item
     droppedItems.forEach((item) => {
-      context.fillStyle = item.id === selectedItemId ? 'lightcoral' : 'lightblue';
-      context.fillRect(item.x, item.y, item.width, item.height);
-      context.fillStyle = 'black';
-      context.fillText(item.name, item.x + 5, item.y + 15);
+      const image = new window.Image();
+      image.src = item.image; // Path to the image file, e.g., '/dashboard/chair.png'
+
+      image.onload = () => {
+        context.drawImage(image, item.x, item.y, item.width, item.height);
+        if (item.id === selectedItemId) {
+          // Draw a border around the selected item
+          context.strokeStyle = 'red';
+          context.lineWidth = 3;
+          context.strokeRect(item.x, item.y, item.width, item.height);
+        }
+      };
     });
   }, [length, width, droppedItems, selectedItemId]);
 
