@@ -1,4 +1,3 @@
-// RoomCanvas.js
 import React, { useEffect, useRef } from 'react';
 
 const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick, onItemMove }) => {
@@ -9,15 +8,13 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    // Set canvas dimensions
     canvas.width = length * 10;
     canvas.height = width * 10;
 
-    // Draw room background
-    context.fillStyle = 'gray';
+    // Set light grey background
+    context.fillStyle = '#d3d3d3';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw each dropped item
     droppedItems.forEach((item) => {
       context.fillStyle = item.id === selectedItemId ? 'lightcoral' : 'lightblue';
       context.fillRect(item.x, item.y, item.width, item.height);
@@ -29,7 +26,6 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
   const handleCanvasClick = (event) => {
     const { offsetX, offsetY } = event.nativeEvent;
 
-    // Detect if an item was clicked based on coordinates
     const clickedItem = droppedItems.find(
       (item) =>
         offsetX >= item.x &&
@@ -56,11 +52,11 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
   return (
     <canvas
       ref={canvasRef}
-      style={{ border: '1px solid black' }}
+      style={{ border: '1px solid black', backgroundColor: '#f0f0f0' }}
       onClick={handleCanvasClick}
       onMouseMove={(event) => {
         if (event.buttons === 1 && selectedItemId) {
-          handleCanvasDrag(event); // Move item while dragging
+          handleCanvasDrag(event);
         }
       }}
     />
