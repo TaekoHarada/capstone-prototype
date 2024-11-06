@@ -3,8 +3,8 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
   Cog6ToothIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
-
 
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
@@ -18,6 +18,11 @@ const links = [
     name: "User Settings",
     href: "/dashboard/settings",
     icon: Cog6ToothIcon,
+  },
+  {
+    name: "Rewards",
+    href: "/dashboard/rewards",
+    icon: StarIcon,
   },
 ];
 

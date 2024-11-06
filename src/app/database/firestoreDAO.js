@@ -62,11 +62,11 @@ class FirestoreDAO {
 
   // Method to create a new document in the collection
   async create(id, data) {
-    if (data.createAt instanceof Date) {
-      data.createAt = Timestamp.fromDate(data.createAt);
+    if (data.hire_date instanceof Date) {
+      data.hire_date = Timestamp.fromDate(data.hire_date); // Convert hire_date to Firestore Timestamp
     }
     if (data.updatedAt instanceof Date) {
-      data.updatedAt = Timestamp.fromDate(data.updatedAt);
+      data.updatedAt = Timestamp.fromDate(data.updatedAt); // Convert updatedAt to Firestore Timestamp
     }
     console.log("data", data);
     await setDoc(doc(this.collectionRef, id), data);
