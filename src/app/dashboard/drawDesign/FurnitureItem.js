@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-konva';
 
@@ -6,10 +8,10 @@ const FurnitureItem = ({ item, x, y }) => {
 
   useEffect(() => {
     const img = new window.Image();
-    img.src = item.image; // Using the hardcoded path from furnitureData.js
+    img.src = item.image; // Path from furnitureData.js
 
     img.onload = () => {
-      setImage(img); // Set the image only after it has fully loaded
+      setImage(img); // Set the image in state once it’s loaded
     };
 
     img.onerror = () => {
