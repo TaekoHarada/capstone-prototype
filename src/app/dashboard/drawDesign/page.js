@@ -142,3 +142,11 @@ const DrawDesignPage = () => {
 };
 
 export default DrawDesignPage;
+
+
+// References
+// ChatGPT
+// Prompts:
+// 1. "I want to create a full room designer app in React with draggable furniture items, how do I start?"
+// 2. "How can I set up drag-and-drop functionality for furniture items in React?"
+// 3. "How can I dynamically create a canvas in React where users can place furniture items and adjust room dimensions?"

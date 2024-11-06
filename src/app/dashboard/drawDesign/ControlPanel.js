@@ -61,3 +61,10 @@ const ControlPanel = ({ onDimensionsSubmit }) => {
 };
 
 export default ControlPanel;
+
+// References
+// ChatGPT
+// Prompts:
+// 1. "How can I create a control panel in React to let users input room dimensions?"
+// 2. "How do I validate inputs in React and submit valid dimensions to another component?"
+
