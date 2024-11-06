@@ -1,30 +1,32 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChair, faTable, faCarpet } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useRef } from 'react';
+import { Rect } from 'react-konva';
 
-const iconMap = {
-  chair: faChair,
-  table: faTable,
-  rug: faCarpet,
-};
+const FurnitureItem = ({ item, x, y }) => {
+  const rectRef = useRef(null);
 
-const FurnitureItem = ({ item, x, y }) => (
-  <>
-    <FontAwesomeIcon
-      icon={iconMap[item.id]}
-      style={{
-        position: 'absolute',
-        left: x,
-        top: y,
-        fontSize: `${item.width}px`, // Scale icon to match item width
-        color: 'lightblue',
-      }}
+  useEffect(() => {
+    const image = new window.Image();
+    image.src = item.image;
+
+    image.onload = () => {
+      if (rectRef.current) {
+        rectRef.current.fillPatternImage(image);
+        rectRef.current.getLayer().batchDraw();
+      }
+    };
+  }, [item.image]);
+
+  return (
+    <Rect
+      x={x}
+      y={y}
+      width={item.width}
+      height={item.height}
+      ref={rectRef}
+      fillPatternScale={{ x: item.width / 100, y: item.height / 100 }}
       draggable
     />
-    <span style={{ position: 'absolute', left: x, top: y + item.height + 5, fontSize: '12px', color: 'black' }}>
-      {item.name}
-    </span>
-  </>
-);
+  );
+};
 
 export default FurnitureItem;
