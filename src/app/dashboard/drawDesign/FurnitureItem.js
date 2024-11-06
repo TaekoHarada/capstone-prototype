@@ -1,35 +1,33 @@
-import React, { useEffect, useRef } from 'react';
-import { Rect } from 'react-konva';
+import React, { useEffect, useState } from 'react';
+import { Image } from 'react-konva';
 
-const FurnitureItem = ({ x, y }) => {
-  const rectRef = useRef(null);
+const FurnitureItem = ({ item, x, y }) => {
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    const image = new window.Image();
-    image.src = '/dashboard/chair.png'; // Hardcoded path for testing
+    const img = new window.Image();
+    img.src = item.image; // Using the hardcoded path from furnitureData.js
 
-    image.onload = () => {
-      if (rectRef.current) {
-        rectRef.current.fillPatternImage(image);
-        rectRef.current.getLayer().batchDraw(); // Redraws layer to apply the image
-      }
+    img.onload = () => {
+      setImage(img); // Set the image only after it has fully loaded
     };
 
-    image.onerror = () => {
-      console.error("Failed to load image at /dashboard/chair.png");
+    img.onerror = () => {
+      console.error(`Failed to load image at ${item.image}`);
     };
-  }, []);
+  }, [item.image]);
 
   return (
-    <Rect
-      x={x}
-      y={y}
-      width={50} // Set to the desired width
-      height={50} // Set to the desired height
-      ref={rectRef}
-      fillPatternScale={{ x: 1, y: 1 }} // Adjust scale as needed
-      draggable
-    />
+    image && (
+      <Image
+        x={x}
+        y={y}
+        image={image}
+        width={item.width}
+        height={item.height}
+        draggable
+      />
+    )
   );
 };
 
