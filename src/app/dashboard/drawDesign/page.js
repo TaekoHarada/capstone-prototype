@@ -10,8 +10,8 @@ const RoomCanvas = dynamic(() => import('./RoomCanvas'), { ssr: false });
 const DrawDesignPage = () => {
   const [roomDimensions, setRoomDimensions] = useState({ length: 0, width: 0 });
   const [isCanvasVisible, setIsCanvasVisible] = useState(false);
-  const [droppedItems, setDroppedItems] = useState([]); // Track dropped items
-  const [selectedItemId, setSelectedItemId] = useState(null); // Track selected item
+  const [droppedItems, setDroppedItems] = useState([]);
+  const [selectedItemId, setSelectedItemId] = useState(null);
 
   const handleStartDrawing = (length, width) => {
     setRoomDimensions({ length, width });
@@ -27,10 +27,9 @@ const DrawDesignPage = () => {
     const { offsetX, offsetY } = event.nativeEvent;
     const item = JSON.parse(event.dataTransfer.getData('item'));
 
-    // Add new item position to droppedItems, ensure it does not overlap
     const newItem = {
       ...item,
-      id: `${item.id}-${Date.now()}`, // Unique ID
+      id: `${item.id}-${Date.now()}`,
       x: offsetX,
       y: offsetY,
     };
@@ -38,12 +37,10 @@ const DrawDesignPage = () => {
   };
 
   const handleItemClick = (id) => {
-    // Select an item to allow repositioning or deletion
     setSelectedItemId(id);
   };
 
   const handleItemMove = (id, newX, newY) => {
-    // Move item to a new position on the canvas
     setDroppedItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id ? { ...item, x: newX, y: newY } : item
@@ -56,31 +53,24 @@ const DrawDesignPage = () => {
       setDroppedItems((prevItems) =>
         prevItems.filter((item) => item.id !== selectedItemId)
       );
-      setSelectedItemId(null); // Deselect item after deletion
+      setSelectedItemId(null);
     }
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center', paddingTop: '20px' }}>
       <h2>Room Designer</h2>
       <ControlPanel onDimensionsSubmit={handleStartDrawing} />
       {isCanvasVisible && (
         <div
-          onDrop={handleDrop}
-          onDragOver={(e) => e.preventDefault()}
-          style={{ position: 'relative' }}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginTop: '20px',
+          }}
         >
-          <RoomCanvas
-            roomDimensions={roomDimensions}
-            droppedItems={droppedItems}
-            selectedItemId={selectedItemId}
-            onItemClick={handleItemClick}
-            onItemMove={handleItemMove}
-          />
-          <button onClick={handleDeleteItem} disabled={!selectedItemId}>
-            Delete Selected Item
-          </button>
-          <div style={{ marginTop: '20px' }}>
+          <div style={{ display: 'flex', gap: '15px', marginBottom: '10px' }}>
             {furnitureData.map((item) => (
               <div
                 key={item.id}
@@ -90,7 +80,6 @@ const DrawDesignPage = () => {
                   width: item.width,
                   height: item.height,
                   backgroundColor: 'lightblue',
-                  margin: '5px',
                   padding: '10px',
                   cursor: 'grab',
                   textAlign: 'center',
@@ -100,6 +89,22 @@ const DrawDesignPage = () => {
               </div>
             ))}
           </div>
+          <div
+            onDrop={handleDrop}
+            onDragOver={(e) => e.preventDefault()}
+            style={{ position: 'relative' }}
+          >
+            <RoomCanvas
+              roomDimensions={roomDimensions}
+              droppedItems={droppedItems}
+              selectedItemId={selectedItemId}
+              onItemClick={handleItemClick}
+              onItemMove={handleItemMove}
+            />
+          </div>
+          <button onClick={handleDeleteItem} disabled={!selectedItemId} style={{ marginTop: '10px' }}>
+            Delete Selected Item
+          </button>
         </div>
       )}
     </div>
