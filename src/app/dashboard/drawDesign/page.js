@@ -59,7 +59,9 @@ const DrawDesignPage = () => {
 
   return (
     <div style={{ textAlign: 'center', paddingTop: '20px' }}>
-      <h2>Room Designer</h2>
+      <h2 style={{ fontSize: '2em', fontWeight: 'bold', color: '#4A90E2', marginBottom: '10px' }}>
+        Room Designer
+      </h2>
       <ControlPanel onDimensionsSubmit={handleStartDrawing} />
       {isCanvasVisible && (
         <div
@@ -102,7 +104,22 @@ const DrawDesignPage = () => {
               onItemMove={handleItemMove}
             />
           </div>
-          <button onClick={handleDeleteItem} disabled={!selectedItemId} style={{ marginTop: '10px' }}>
+          <button
+            onClick={handleDeleteItem}
+            disabled={!selectedItemId}
+            style={{
+              marginTop: '15px',
+              backgroundColor: '#e74c3c',
+              color: 'white',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '10px',
+              fontWeight: 'bold',
+              fontSize: '1em',
+              cursor: 'pointer',
+              opacity: selectedItemId ? 1 : 0.6,
+            }}
+          >
             Delete Selected Item
           </button>
         </div>
