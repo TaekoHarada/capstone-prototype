@@ -3,22 +3,18 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
   Cog6ToothIcon,
+  ArchiveBoxIcon, // Importing an icon for Inventory
 } from "@heroicons/react/24/outline";
-
 
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
-  {
-    name: "Orders",
-    href: "/dashboard/orders",
-    icon: DocumentDuplicateIcon,
-  },
-  {
-    name: "User Settings",
-    href: "/dashboard/settings",
-    icon: Cog6ToothIcon,
-  },
+  { name: "Orders", href: "/dashboard/orders", icon: DocumentDuplicateIcon },
+  { name: "Draw Design", href: "/dashboard/drawDesign", icon: DocumentDuplicateIcon },
+  { name: "User Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
+
+  // Inventory Link
+  { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
 ];
 
 export default function NavLinks() {
