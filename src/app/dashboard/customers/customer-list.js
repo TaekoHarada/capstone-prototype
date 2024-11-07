@@ -14,13 +14,6 @@ const CustomerList = () => {
     const fetchCustomers = async () => {
       try {
         const data = await Customer.findAll();
-<<<<<<< HEAD
-=======
-
-        //sort with the 1st name//
-        // Sort customers alphabetically by firstname
-        
->>>>>>> 85e07d06e1af66bf8f3704b91ea2b1148564a5a0
         const sortedData = data.sort((a, b) => a.firstname.localeCompare(b.firstname));
         setCustomers(sortedData);
       } catch (error) {
@@ -38,12 +31,6 @@ const CustomerList = () => {
     }
     try {
       const results = await Customer.findByFirstName(name);
-<<<<<<< HEAD
-=======
-
-      // Sort search results alphabetically by firstname
-
->>>>>>> 85e07d06e1af66bf8f3704b91ea2b1148564a5a0
       const sortedResults = results.sort((a, b) => a.firstname.localeCompare(b.firstname));
       setCustomers(sortedResults);
       setError("");
@@ -52,7 +39,7 @@ const CustomerList = () => {
       setError("Error fetching customers.");
     }
   };
-
+  
   return (
     <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
       <div className="search-form flex justify-between items-center my-4">
@@ -80,7 +67,6 @@ const CustomerList = () => {
           </Link>
         </div>
       </div>
-<<<<<<< HEAD
       {error && <div className="text-red-500 dark:text-red-400">{error}</div>}
       <div className="overflow-x-auto">
         <table className="min-w-full text-gray-900 dark:text-white bg-white dark:bg-gray-800">
@@ -104,29 +90,6 @@ const CustomerList = () => {
           </tbody>
         </table>
       </div>
-=======
-      {error && <div className="text-red-500">{error}</div>}
-      <table className="hidden min-w-full text-gray-900 md:table">
-        <thead className="bg-gray-100 text-left text-sm font-normal">
-          <tr>
-            <th scope="col" className="px-3 py-3 font-medium">Customer ID</th>
-            <th scope="col" className="px-3 py-3 font-medium">First Name</th>
-            <th scope="col" className="px-3 py-3 font-medium">Last Name</th>
-            <th scope="col" className="px-3 py-3 font-medium">Email</th>
-            <th scope="col" className="px-3 py-3 font-medium">Phone</th>
-            <th scope="col" className="px-3 py-3 font-medium">Address</th>
-            <th scope="col" className="px-4 py-3 font-medium">Note</th>
-            <th scope="col" className="px-4 py-3 font-medium"></th>
-            <th scope="col" className="px-4 py-3 font-medium"></th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-900 text-gray-900">
-          {customers.map((customer) => (
-            <CustomerInfo key={customer.id} customer={customer} />
-          ))}
-        </tbody>
-      </table>
->>>>>>> 85e07d06e1af66bf8f3704b91ea2b1148564a5a0
     </div>
   );
 };
