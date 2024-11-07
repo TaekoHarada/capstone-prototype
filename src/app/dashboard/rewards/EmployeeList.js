@@ -1,54 +1,39 @@
-import { useEffect, useState } from "react";
-import FirestoreDAO from "../app/database/firestoreDAO"; // Path to the FirestoreDAO class
+// src/app/dashboard/rewards/EmployeeList.js
 
-const employeesDAO = new FirestoreDAO("employees"); // Initialize DAO for 'employees' collection
+"use client"; // <-- Add this line
 
-export default function EmployeeList() {
-  // State to store the list of employees
-  const [employees, setEmployees] = useState([]);
+import React from "react";
 
-  // Fetch employees when the component mounts
-  useEffect(() => {
-    // Function to fetch employees
-    const fetchEmployees = async () => {
-      try {
-        const data = await employeesDAO.getAll(); // Fetch all employees from Firestore
-        setEmployees(data); // Update the state with the fetched employees
-      } catch (error) {
-        console.error("Error fetching employees:", error);
-      }
-    };
-
-    fetchEmployees(); // Call the fetch function
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
+const EmployeeList = ({ employees }) => {
+  if (!employees || employees.length === 0) {
+    return <p>No employees found.</p>;
+  }
 
   return (
-    <div>
-      <h1>Employee Management</h1>
-      <p>List of employees will be displayed here.</p>
-
-      {/* Check if there are any employees */}
-      {employees.length === 0 ? (
-        <p>No employees found.</p>
-      ) : (
-        <ul>
+    <div className="employee-list bg-white p-6 shadow-md rounded-lg w-full">
+      <h2 className="text-xl font-semibold mb-4 text-center">Employee List</h2>
+      <table className="min-w-full table-auto text-center">
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border-b">ID</th>
+            <th className="px-4 py-2 border-b">Name</th>
+            <th className="px-4 py-2 border-b">Role</th>
+            <th className="px-4 py-2 border-b">Status</th>
+          </tr>
+        </thead>
+        <tbody>
           {employees.map((employee) => (
-            <li key={employee.id}>
-              <h3>{employee.name}</h3>
-              <p>Email: {employee.email}</p>
-              <p>Role: {employee.role}</p>
-              <p>Status: {employee.status}</p>
-              <p>
-                Hire Date:{" "}
-                {new Date(
-                  employee.hire_date.seconds * 1000
-                ).toLocaleDateString()}
-              </p>{" "}
-              {/* Firestore timestamps */}
-            </li>
+            <tr key={employee.id}>
+              <td className="px-4 py-2 border-b">{employee.id}</td>
+              <td className="px-4 py-2 border-b">{employee.name}</td>
+              <td className="px-4 py-2 border-b">{employee.role}</td>
+              <td className="px-4 py-2 border-b">{employee.status}</td>
+            </tr>
           ))}
-        </ul>
-      )}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
+
+export default EmployeeList;
