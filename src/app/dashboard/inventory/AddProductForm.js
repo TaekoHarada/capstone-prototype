@@ -4,7 +4,6 @@ import React, { useState } from "react";
 export default function AddProductForm({ addProduct }) {
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
     price: "",
     quantity: "",
   });
@@ -18,14 +17,14 @@ export default function AddProductForm({ addProduct }) {
     e.preventDefault();
     console.log("Adding Product:", formData);
 
-    // You could perform validation here (e.g., check if price and quantity are valid)
+    // Ensure required fields are filled before adding
     if (!formData.name || !formData.price || !formData.quantity) {
       alert("Please fill all the fields");
       return;
     }
 
     addProduct(formData); // Call addProduct to update the product list
-    setFormData({ name: "", category: "", price: "", quantity: "" }); // Clear form after submission
+    setFormData({ name: "", price: "", quantity: "" }); // Clear all form fields after submission
   };
 
   return (
@@ -36,18 +35,6 @@ export default function AddProductForm({ addProduct }) {
           type="text"
           name="name"
           value={formData.name}
-          onChange={handleChange}
-          required
-          className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">Category</label>
-        <input
-          type="text"
-          name="category"
-          value={formData.category}
           onChange={handleChange}
           required
           className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm"
