@@ -32,8 +32,6 @@ export default function InventoryPage() {
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-semibold">Inventory Management</h1>
-      <AddProductForm addProduct={addProduct} />
       <InventoryList
         products={products}
         editProduct={editProduct}

@@ -1,27 +1,69 @@
-// src/app/dashboard/inventory/InventoryItem.js
+import React, { useState } from "react";
+
 export default function InventoryItem({ product, editProduct, deleteProduct }) {
-    return (
-      <li className="flex justify-between items-center bg-gray-100 p-4 rounded-md shadow-md">
-        <div>
-          <h3 className="text-lg font-semibold">{product.name}</h3>
-          <p>{product.price}</p>
-          <p>Quantity: {product.quantity}</p>
-        </div>
-        <div className="flex space-x-2">
-          <button
-            onClick={() => editProduct(product)} // Calls editProduct with the entire product
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => deleteProduct(product.id)} // Calls deleteProduct with the product id
-            className="bg-red-500 text-white px-4 py-2 rounded-md"
-          >
-            Delete
-          </button>
-        </div>
-      </li>
-    );
-  }
-  
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProduct, setEditedProduct] = useState(product);
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProduct({ ...editedProduct, [name]: value });
+  };
+
+  const handleSave = () => {
+    editProduct(editedProduct); // Save the edited product
+    setIsEditing(false); // Exit edit mode
+  };
+
+  return (
+    <tr>
+      <td className="px-6 py-4 whitespace-nowrap">
+  {isEditing ? (
+    <input 
+      type="text" 
+      name="name" 
+      value={editedProduct.name} 
+      onChange={handleEditChange} 
+      className="text-gray-900 bg-white border border-gray-300 rounded-md px-2 py-1"
+    />
+  ) : (
+    product.name
+  )}
+</td>
+<td className="px-6 py-4 whitespace-nowrap">
+  {isEditing ? (
+    <input 
+      type="number" 
+      name="price" 
+      value={editedProduct.price} 
+      onChange={handleEditChange} 
+      className="text-gray-900 bg-white border border-gray-300 rounded-md px-2 py-1"
+    />
+  ) : (
+    `$${product.price}`
+  )}
+</td>
+<td className="px-6 py-4 whitespace-nowrap">
+  {isEditing ? (
+    <input 
+      type="number" 
+      name="quantity" 
+      value={editedProduct.quantity} 
+      onChange={handleEditChange} 
+      className="text-gray-900 bg-white border border-gray-300 rounded-md px-2 py-1"
+    />
+  ) : (
+    product.quantity
+  )}
+</td>
+
+      <td className="px-6 py-4 whitespace-nowrap">
+        {isEditing ? (
+          <button onClick={handleSave} className="text-green-600">Save</button>
+        ) : (
+          <button onClick={() => setIsEditing(true)} className="text-blue-600">Edit</button>
+        )}
+        <button onClick={() => deleteProduct(product.id)} className="text-red-600 ml-4">Delete</button>
+      </td>
+    </tr>
+  );
+}
