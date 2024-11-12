@@ -1,4 +1,3 @@
-// src/app/dashboard/rewards/EmployeePerformance.js
 import React, { useEffect, useState } from "react";
 import { employeePerformanceDAO } from "../../firebase/firestoreDAO";
 
@@ -8,7 +7,7 @@ const EmployeePerformance = () => {
   useEffect(() => {
     const fetchPerformanceData = async () => {
       const data = await employeePerformanceDAO.getAll();
-      setPerformanceData(data);
+      setPerformanceData(data); // updates with the retrieved data
     };
     fetchPerformanceData();
   }, []);

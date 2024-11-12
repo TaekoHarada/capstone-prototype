@@ -87,4 +87,9 @@ class FirestoreDAO {
   }
 }
 
+// Firestore Collections for Employees, Employee Performance, and Rewards
+export const employeesDAO = new FirestoreDAO("employees");
+export const employeePerformanceDAO = new FirestoreDAO("employee_performance");
+export const employeeRewardsDAO = new FirestoreDAO("employee_rewards");
+
 export default FirestoreDAO;

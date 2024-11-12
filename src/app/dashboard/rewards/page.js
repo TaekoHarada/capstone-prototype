@@ -1,24 +1,36 @@
 // src/app/dashboard/rewards/page.js
-
 "use client";
-
 import React, { useEffect, useState } from "react";
-import { addEmployees } from "../../database/addEmployee"; // Import addEmployees
-import EmployeeList from "./EmployeeList"; // Import EmployeeList
+import EmployeeList from "./EmployeeList";
 
-const RewardsPage = () => {
+const EmployeePage = () => {
   const [employees, setEmployees] = useState([]);
 
   const fetchEmployees = async () => {
-    // Dummy employee data
     const fetchedEmployees = [
-      { id: "emp001", name: "John Doe", role: "Manager", status: "active" },
-      { id: "emp002", name: "Jane Smith", role: "Staff", status: "active" },
+      {
+        id: "emp001",
+        name: "John Doe",
+        role: "Manager",
+        orderAccuracy: 98,
+        ordersCompleted: 120,
+        rating: 4.5,
+      },
+      {
+        id: "emp002",
+        name: "Jane Smith",
+        role: "Staff",
+        orderAccuracy: 92,
+        ordersCompleted: 90,
+        rating: 3.8,
+      },
       {
         id: "emp003",
         name: "Sam Wilson",
         role: "Supervisor",
-        status: "active",
+        orderAccuracy: 99,
+        ordersCompleted: 150,
+        rating: 4.9,
       },
     ];
     setEmployees(fetchedEmployees);
@@ -28,34 +40,19 @@ const RewardsPage = () => {
     fetchEmployees();
   }, []);
 
-  const handleAddEmployees = async () => {
-    try {
-      await addEmployees(); // This will add employees to Firestore
-      alert("Employees added successfully!");
-      fetchEmployees(); // Refresh employee list
-    } catch (error) {
-      console.error("Error adding employees:", error);
-      alert("Failed to add employees.");
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="rewards-page p-6 bg-white shadow-md rounded-lg w-full max-w-4xl mb-6">
-        <h1 className="text-2xl font-semibold mb-4 text-center">Rewards</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6 px-4 sm:px-6 lg:px-8">
+      {/* Main container */}
+      <div className="employee-page p-6 bg-white shadow-lg rounded-lg w-full max-w-5xl">
+        {/* Title */}
+        <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">
+          Employee List
+        </h1>
+        {/* Employee List Component */}
         <EmployeeList employees={employees} />
-      </div>
-
-      <div className="flex justify-center w-full">
-        <button
-          onClick={handleAddEmployees}
-          className="bg-blue-500 text-white px-6 py-2 rounded mb-4"
-        >
-          Add Employee
-        </button>
       </div>
     </div>
   );
 };
 
-export default RewardsPage;
+export default EmployeePage;
