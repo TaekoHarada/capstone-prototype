@@ -60,9 +60,9 @@ const EmployeePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="flex flex-col items-center justify-center min-h-[30vh]">
-        <h1 className="text-3xl font-bold mb-4 text-center">
+        <h1 className="text-3xl font-bold mb-4 text-center bg-gray-200 bg-opacity-80 px-4 py-2 rounded-md shadow-md">
           Check your Performance Status!
         </h1>
       </div>

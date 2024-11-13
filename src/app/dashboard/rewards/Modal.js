@@ -34,12 +34,14 @@ const Modal = ({ employee, closeModal }) => {
           <p className="text-lg font-semibold">{badge.message}</p>
         </div>
 
-        <button
-          onClick={closeModal}
-          className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-        >
-          Close
-        </button>
+        <div className="flex justify-center">
+          <button
+            onClick={closeModal}
+            className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
