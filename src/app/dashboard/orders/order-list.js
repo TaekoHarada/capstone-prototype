@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import OrderInfo from "./order-info"; // Assuming this is your order display component
+import OrderInfo from "./order-info"; 
 import Order from "/src/app/models/Order";
 import Link from "next/link";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; // If used in search input
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; 
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
-  const [searchId, setSearchId] = useState(""); // For storing search input
-  const [isLoading, setIsLoading] = useState(true); // Loading state to handle async data
+  const [searchId, setSearchId] = useState(""); 
+  const [isLoading, setIsLoading] = useState(true); 
 
-  // Fetch all orders on component mount
   useEffect(() => {
     const fetchOrders = async () => {
+      //Try and Catch block
       try {
         const data = await Order.findAll();
         setOrders(data);
@@ -29,18 +29,17 @@ const OrderList = () => {
     fetchOrders();
   }, []);
 
-  // Handle searching by order ID
   const handleSearchClick = async () => {
     if (!searchId) {
       setError("Please enter an order ID.");
       return;
     }
 
-    setIsLoading(true);
+    setIsLoading(true); //Chatgpt
     try {
-      const result = await Order.findById(searchId); // Search by ID
+      const result = await Order.findById(searchId); 
       if (result) {
-        setOrders([result]); // Show the result as an array
+        setOrders([result]); 
       } else {
         setOrders([]);
         setError("No order found with the given ID.");
@@ -64,10 +63,10 @@ const OrderList = () => {
         <div className="relative flex flex-1 flex-shrink-0">
           <input
             value={searchId}
-            onChange={(e) => setSearchId(e.target.value)} // Update state on input change
+            onChange={(e) => setSearchId(e.target.value)} 
             className="peer block w-full rounded-md border border-gray-300 dark:border-gray-600 py-[9px] pl-10 text-sm text-gray-900 dark:text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800"
-            placeholder="Order ID"
-          />
+            placeholder="Order ID" //chatgpt
+          /> 
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 dark:peer-focus:text-white" />
         </div>
         <div>
@@ -87,14 +86,12 @@ const OrderList = () => {
         </div>
       </div>
 
-      {/* Display error message if any */}
       {error && <div className="text-red-500 dark:text-red-400">{error}</div>}
 
-      {/* Loading spinner or message */}
       {isLoading ? (
         <div className="text-center py-4">
           <span className="text-gray-500 dark:text-gray-400">Loading orders...</span>
-        </div>
+        </div> //indicator
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full text-gray-900 dark:text-white dark:bg-gray-800">
