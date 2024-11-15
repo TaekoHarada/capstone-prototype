@@ -4,6 +4,7 @@ import {
   DocumentDuplicateIcon,
   Cog6ToothIcon,
   StarIcon,
+  ArchiveBoxIcon, // Importing an icon for Inventory
 } from "@heroicons/react/24/outline";
 
 const links = [
@@ -24,6 +25,16 @@ const links = [
     href: "/dashboard/rewards",
     icon: StarIcon,
   },
+  { name: "Orders", href: "/dashboard/orders", icon: DocumentDuplicateIcon },
+  {
+    name: "Draw Design",
+    href: "/dashboard/drawDesign",
+    icon: DocumentDuplicateIcon,
+  },
+  { name: "User Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
+
+  // Inventory Link
+  { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
 ];
 
 export default function NavLinks() {
