@@ -31,16 +31,13 @@ const InventoryPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // States for new product details
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
   const [isInStock, setIsInStock] = useState(true);
   const [image, setImage] = useState(null);
 
-  // Toggle Add Product Form
   const toggleAddProductForm = () => setShowAddProductForm(!showAddProductForm);
 
-  // Handle image file selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -49,9 +46,8 @@ const InventoryPage = () => {
     }
   };
 
-  // Handle product form submission
   const handleAddProduct = (e) => {
-    e.preventDefault();
+    e.preventDefault();  
     const newProduct = {
       id: Date.now().toString(),
       name: productName,
@@ -63,7 +59,6 @@ const InventoryPage = () => {
     resetForm();
   };
 
-  // Reset the form after submitting
   const resetForm = () => {
     setProductName('');
     setDescription('');
@@ -72,19 +67,16 @@ const InventoryPage = () => {
     setShowAddProductForm(false);
   };
 
-  // Open the popup for product details
   const openPopup = (product) => {
     setSelectedProduct(product);
     setShowPopup(true);
   };
 
-  // Close the product details popup
   const closePopup = () => {
     setShowPopup(false);
     setSelectedProduct(null);
   };
 
-  // Clean up image URL
   useEffect(() => {
     return () => {
       if (image) {
@@ -97,7 +89,6 @@ const InventoryPage = () => {
     <div className="p-6">
       <h1 className="text-4xl font-bold mb-4 text-center">Inventory</h1>
 
-
       <button
         onClick={toggleAddProductForm}
         className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
@@ -105,7 +96,6 @@ const InventoryPage = () => {
         {showAddProductForm ? "Cancel" : "Add Product"}
       </button>
 
-      {/* Add Product Form */}
       {showAddProductForm && (
         <form onSubmit={handleAddProduct} className="bg-gray-100 p-4 rounded-md mb-4">
           <div className="mb-4">
@@ -132,7 +122,7 @@ const InventoryPage = () => {
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Stock Status</label>
             <select
-              value={isInStock}
+              value={isInStock ? 'true' : 'false'}
               onChange={(e) => setIsInStock(e.target.value === 'true')}
               className="w-full p-2 border rounded-md"
             >
@@ -153,23 +143,21 @@ const InventoryPage = () => {
         </form>
       )}
 
-      {/* Product List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
             className="cursor-pointer"
-            onClick={() => openPopup(product)} // Open the popup on click
+            onClick={() => openPopup(product)}
           >
             <ProductCard product={product} />
           </div>
         ))}
       </div>
 
-      {/* Popup Modal */}
       {showPopup && selectedProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
-          <div className="bg-white p-6 rounded-md w-80">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-md w-full sm:w-80 max-w-md mx-4">
             <h2 className="text-xl font-bold mb-4">{selectedProduct.name}</h2>
             <img
               src={selectedProduct.image}
@@ -180,7 +168,7 @@ const InventoryPage = () => {
             <p>Status: {selectedProduct.isInStock ? "In Stock" : "Out of Stock"}</p>
             <button
               className="bg-red-500 text-white px-4 py-2 mt-4 rounded-md"
-              onClick={closePopup} // Close popup when button is clicked
+              onClick={closePopup}
             >
               Close
             </button>

@@ -3,15 +3,30 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
   Cog6ToothIcon,
+  StarIcon,
   ArchiveBoxIcon, // Importing an icon for Inventory
 } from "@heroicons/react/24/outline";
 
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
   { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  {
+    name: "Orders",
+    href: "/dashboard/orders",
+    icon: DocumentDuplicateIcon,
+  },
+  {
+    name: "Rewards",
+    href: "/dashboard/rewards",
+    icon: StarIcon,
+  },
   { name: "Orders", href: "/dashboard/orders", icon: DocumentDuplicateIcon },
-  { name: "Draw Design", href: "/dashboard/drawDesign", icon: DocumentDuplicateIcon },
-  { name: "User Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
+  {
+    name: "Draw Design",
+    href: "/dashboard/drawDesign",
+    icon: DocumentDuplicateIcon,
+  },
+ 
 
   // Inventory Link
   { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
