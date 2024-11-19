@@ -35,6 +35,7 @@ const links = [
 
   // Inventory Link
   { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
+  { name: "Prediction", href: "/dashboard/prediction", icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
