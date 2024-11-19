@@ -9,21 +9,21 @@ const InventoryPage = () => {
       name: "Modern Bed",
       image: "https://www.pngplay.com/wp-content/uploads/2/Modern-Bed-PNG-Photos.png",
       isInStock: true,
-      description: "A stylish and modern bed with a wooden frame.",
+      description: "Modern bed with a wooden frame.",
     },
     {
       id: "2",
       name: "Sofa",
       image: "https://i5.walmartimages.com/asr/86af7bf1-9d3f-4626-944b-ffef850a59ec_1.92f809dbc61141d775a30e0236a22201.jpeg",
       isInStock: false,
-      description: "A comfortable sofa perfect for any living room.",
+      description: "living room sofa.",
     },
     {
       id: "3",
       name: "Coffee Table",
       image: "https://th.bing.com/th/id/OIP.3ksCKx4YxATx3LdhP72tsQAAAA?rs=1&pid=ImgDetMain",
       isInStock: true,
-      description: "A sleek coffee table that complements modern decor.",
+      description: "Sleek coffee table.",
     },
   ]);
 
