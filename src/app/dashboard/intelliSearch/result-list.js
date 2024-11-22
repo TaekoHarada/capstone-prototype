@@ -1,138 +1,202 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import OrderInfo from "./order-info"; 
-import Order from "/src/app/models/Order";
-import Link from "next/link";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; 
+import React, { useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const ResultList = () => {
-  const [orders, setOrders] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [searchId, setSearchId] = useState(""); 
-  const [isLoading, setIsLoading] = useState(true); 
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      //Try and Catch block
-      try {
-        const data = await Order.findAll();
-        setOrders(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-        setError("Failed to fetch orders.");
-        setIsLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, []);
+  const [searchResults, setSearchResults] = useState(null);
 
   const handleSearchClick = async () => {
-    if (!searchId) {
-      setError("Please enter an order ID.");
+    if (!searchQuery.trim()) {
+      setError("Please enter a search query.");
       return;
     }
 
-    setIsLoading(true); //Chatgpt
+    setIsLoading(true);
+    setError("");
+    setSearchResults(null);
+
     try {
-      const result = await Order.findById(searchId); 
-      if (result) {
-        setOrders([result]); 
-      } else {
-        setOrders([]);
-        setError("No order found with the given ID.");
+      const response = await fetch("/api/result", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ searchQuery }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Search failed");
       }
-      setIsLoading(false);
+
+      const responseData = await response.json();
+      
+      if (responseData.code === "200") {
+        setSearchResults(responseData.data);
+      } else {
+        setError(responseData.msg || "Search failed");
+      }
+      
     } catch (err) {
-      console.error("Error fetching order:", err);
-      setError("Error fetching order.");
+      console.error("Error performing search:", err);
+      setError("Failed to perform search. Please try again.");
+    } finally {
       setIsLoading(false);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
+  const renderResults = () => {
+    if (!searchResults) return null;
+
+    if (searchResults.resultType === "orders") {
+      return (
+        <div className="mt-6 overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Shipping</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Order Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Payment Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Delivery Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Balance</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              {searchResults.resultList.map((order) => (
+                <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    #{order.id}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      order.orderStatus === 'delivered' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                    }`}>
+                      {order.orderStatus}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white capitalize">
+                    {order.shippingType}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {formatDate(order.orderDate)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {formatDate(order.paymentDate)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {formatDate(order.deliverDate)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    ${order.remainingBalance.toFixed(2)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    } else if (searchResults.resultType === "customers") {
+      return (
+        <div className="mt-6 overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-100 dark:bg-gray-700">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">First Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Last Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Address</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">City</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Note</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+              {searchResults.resultList.map((customer) => (
+                <tr key={customer.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    #{customer.id}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {customer.firstName}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {customer.lastName}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {customer.address}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    {customer.city}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    {customer.note === "Premium Member" ? (
+                      <span className="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                        {customer.note}
+                      </span>
+                    ) : (
+                      <span className="text-gray-900 dark:text-white">
+                        {customer.note}
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
     }
   };
 
   return (
     <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="font-bold text-gray-900 dark:text-white">
-       Order List
+      <h2 className="font-bold text-gray-900 dark:text-white mb-6">
+        Smart Search That Gets You - Just Ask in Plain English
       </h2>
 
-      {/* Search functionality */}
-      <div className="search-form flex justify-between items-center my-4">
-        <div className="relative flex flex-1 flex-shrink-0">
+      <div className="search-form flex items-center gap-3">
+        <div className="relative flex flex-1">
           <input
-            value={searchId}
-            onChange={(e) => setSearchId(e.target.value)} 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="peer block w-full rounded-md border border-gray-300 dark:border-gray-600 py-[9px] pl-10 text-sm text-gray-900 dark:text-white outline-none placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:bg-gray-800"
-            placeholder="Order ID" //chatgpt
-          /> 
+            placeholder="Enter your search query"
+          />
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 dark:peer-focus:text-white" />
         </div>
-        <div>
-          <button
-            onClick={handleSearchClick}
-            className="bg-[#262930] dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white py-2 px-4 rounded ml-3 transition-colors duration-200"
-          >
-            Search
-          </button>
-        </div>
-        <div>
-          <Link href="/dashboard/orders/new">
-            <button className="bg-[#262930] dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white py-2 px-4 rounded ml-3 transition-colors duration-200">
-              Add New Order
-            </button>
-          </Link>
-        </div>
+        <button
+          onClick={handleSearchClick}
+          disabled={isLoading}
+          className="bg-[#262930] dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors duration-200 disabled:opacity-50"
+        >
+          {isLoading ? "Searching..." : "Search"}
+        </button>
       </div>
 
-      {error && <div className="text-red-500 dark:text-red-400">{error}</div>}
-
-      {isLoading ? (
-        <div className="text-center py-4">
-          <span className="text-gray-500 dark:text-gray-400">Loading orders...</span>
-        </div> //indicator
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-gray-900 dark:text-white dark:bg-gray-800">
-            <thead className="bg-gray-100 dark:bg-gray-700 text-left text-sm font-medium">
-              <tr>
-                <th scope="col" className="px-3 py-3">Order ID</th>
-                <th scope="col" className="px-3 py-3">Status</th>
-                <th scope="col" className="px-3 py-3">Customer Name</th>
-                <th scope="col" className="px-3 py-3">Item</th>
-                <th scope="col" className="px-3 py-3">Shipping</th>
-                <th scope="col" className="px-3 py-3">Order</th>
-                <th scope="col" className="px-3 py-3">Deliver</th>
-                <th scope="col" className="px-4 py-3">Payment</th>
-                <th scope="col" className="px-4 py-3">Method</th>
-                <th scope="col" className="px-4 py-3">Cost</th>
-                <th scope="col" className="px-4 py-3">Paid</th>
-                <th scope="col" className="px-4 py-3">Remaining</th>
-                <th scope="col" className="px-4 py-3">Invoice</th>
-                <th scope="col" className="px-4 py-3"> </th>
-              </tr>
-            </thead>
-
-            {/* Orders list */}
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-600 bg-white dark:bg-gray-800">
-              {orders.length > 0 ? (
-                orders.map((order) => (
-                  <OrderInfo key={order.id} order={order} />
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="14" className="text-center text-gray-500 dark:text-gray-400">
-                    No orders available.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+      {error && (
+        <div className="mt-4 text-red-500 dark:text-red-400">{error}</div>
       )}
+
+      {renderResults()}
     </div>
   );
 };
 
-export default OrderList;
+export default ResultList;
