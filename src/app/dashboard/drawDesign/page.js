@@ -28,11 +28,11 @@ const DrawDesignPage = () => {
     const { offsetX, offsetY } = event.nativeEvent;
     const item = JSON.parse(event.dataTransfer.getData('item'));
 
-    const newItem = {
-      ...item,
-      id: `${item.id}-${Date.now()}`,
-      x: offsetX,
-      y: offsetY,
+      const newItem = {
+        ...item,
+        id: `${item.id}-${Date.now()}`,
+        x: offsetX,
+        y: offsetY,
     };
     setDroppedItems((prevItems) => [...prevItems, newItem]);
   };
