@@ -21,12 +21,12 @@ const RoomCanvas = ({ roomDimensions, droppedItems, selectedItemId, onItemClick,
     // Draw each furniture item
     droppedItems.forEach((item) => {
       const image = new window.Image();
-      image.src = item.image; // Path to the image file, e.g., '/dashboard/chair.png'
+      image.src = item.image; 
 
       image.onload = () => {
         context.drawImage(image, item.x, item.y, item.width, item.height);
         if (item.id === selectedItemId) {
-          // Draw a border around the selected item
+         
           context.strokeStyle = 'red';
           context.lineWidth = 3;
           context.strokeRect(item.x, item.y, item.width, item.height);
