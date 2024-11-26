@@ -5,7 +5,7 @@ import LineChartTotal from "../../components/prediction/LineChartTotal";
 import LineChartCategory from "../../components/prediction/LineChartCategory";
 import DataTable from "../../components/prediction/DataTable";
 
-const BASEURL = "http://127.0.0.1:5000";
+const BASEURL = "https://data-prediction-f858d2eb8826.herokuapp.com";
 
 export default function Page() {
   const [predictedData, setPredictedData] = useState([]);
