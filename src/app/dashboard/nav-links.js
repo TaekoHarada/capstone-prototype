@@ -3,8 +3,11 @@ import {
   HomeIcon,
   DocumentDuplicateIcon,
   Cog6ToothIcon,
+  StarIcon,
+  ArchiveBoxIcon, // Importing an icon for Inventory
+  MagnifyingGlassIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
-
 
 const links = [
   { name: "Main Menu", href: "/dashboard", icon: HomeIcon },
@@ -14,17 +17,34 @@ const links = [
     href: "/dashboard/orders",
     icon: DocumentDuplicateIcon,
   },
-
+  {
+    name: "User Settings",
+    href: "/dashboard/settings",
+    icon: Cog6ToothIcon,
+  },
+  {
+    name: "Rewards",
+    href: "/dashboard/rewards",
+    icon: StarIcon,
+  },
+  { name: "Orders", href: "/dashboard/orders", icon: DocumentDuplicateIcon },
   {
     name: "Draw Design",
     href: "/dashboard/drawDesign",
     icon: DocumentDuplicateIcon,
   },
+  { name: "User Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
 
+  // Inventory Link
+  { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
+  // Prediction Link
+  { name: "Prediction", href: "/dashboard/prediction", icon: ChartBarIcon },
+
+  // IntelliSearch
   {
-    name: "User Settings",
-    href: "/dashboard/settings",
-    icon: Cog6ToothIcon,
+    name: "IntelliSearch",
+    href: "/dashboard/intelliSearch",
+    icon: MagnifyingGlassIcon,
   },
 ];
 
