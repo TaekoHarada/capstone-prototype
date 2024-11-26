@@ -14,7 +14,7 @@ const Modal = ({ employee, closeModal }) => {
         onClick={(e) => e.stopPropagation()} // Prevent closing modal when clicking inside
       >
         <h2 className="text-2xl font-bold mb-4">
-          {employee.name}&apos;s Badge
+          {employee.name} &apos;s Badge
         </h2>
         <p className="text-lg mb-4">Role: {employee.role}</p>
         <p className="text-lg mb-4">Rating: {employee.rating}</p>
