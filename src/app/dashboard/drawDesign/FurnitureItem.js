@@ -11,7 +11,7 @@ const FurnitureItem = ({ item, x, y }) => {
     img.src = item.image; // Path from furnitureData.js
 
     img.onload = () => {
-      setImage(img); // Set the image in state once it’s loaded
+      setImage(img); 
     };
 
     img.onerror = () => {
