@@ -5,7 +5,8 @@ import {
   Cog6ToothIcon,
   StarIcon,
   ArchiveBoxIcon, // Importing an icon for Inventory
-  MagnifyingGlassIcon
+  MagnifyingGlassIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
 
 const links = [
@@ -36,7 +37,8 @@ const links = [
 
   // Inventory Link
   { name: "Inventory", href: "/dashboard/inventory", icon: ArchiveBoxIcon },
-  { name: "Prediction", href: "/dashboard/prediction", icon: UserGroupIcon },
+  // Prediction Link
+  { name: "Prediction", href: "/dashboard/prediction", icon: ChartBarIcon },
 
   // IntelliSearch
   {
