@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
+const SEARCH_API = process.env.NEXT_PUBLIC_INTELLI_SEARCH_SERVER + "/api/result"
+
 const ResultList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +22,7 @@ const ResultList = () => {
     setSearchResults(null);
 
     try {
-      const response = await fetch("/api/result", {
+      const response = await fetch(SEARCH_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,6 +30,8 @@ const ResultList = () => {
         body: JSON.stringify({ searchQuery }),
       });
 
+      console.log("search api: " + SEARCH_API)
+      
       if (!response.ok) {
         throw new Error("Search failed");
       }
